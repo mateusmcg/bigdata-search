@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigDataSearch", "BigDataSearch\BigDataSearch.csproj", "{5442289B-EBF6-49D4-8B41-1692DEA2F5E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigDataSearch.Client", "BigDataSearch.Client\BigDataSearch.Client.csproj", "{8763EDA1-B95A-4C38-B311-882315FD8A81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5442289B-EBF6-49D4-8B41-1692DEA2F5E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5442289B-EBF6-49D4-8B41-1692DEA2F5E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5442289B-EBF6-49D4-8B41-1692DEA2F5E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5442289B-EBF6-49D4-8B41-1692DEA2F5E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8763EDA1-B95A-4C38-B311-882315FD8A81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8763EDA1-B95A-4C38-B311-882315FD8A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8763EDA1-B95A-4C38-B311-882315FD8A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8763EDA1-B95A-4C38-B311-882315FD8A81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

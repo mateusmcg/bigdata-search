@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bigdata Search App</title>
+
+    <link href="assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/weather-icons/weather-icons.css" rel="stylesheet" />
+    <link href="assets/css/weather-icons/weather-icons-wind.css" rel="stylesheet" />
+    <link href="assets/css/angular-xeditable/xeditable.css" rel="stylesheet" />
+    <link href="assets/css/angular-toastr/angular-toastr.css" rel="stylesheet" />
+    <link href="assets/css/app.css" rel="stylesheet" />
+</head>
+<body id="app" ng-app="BigDataSearchApp">
+
+    <section ng-include="'app/common/nav/header.html'"
+             id="header"
+             class="header-container"></section>
+
+    <div class="main-container">
+        <section id="content"
+                 class="container"
+                 ng-view></section>
+    </div>
+
+    <!--Angular-->
+    <script src="assets/libs/angular/angular.min.js"></script>
+
+    <!--external modules-->
+    <script src="assets/libs/jquery/jquery.js"></script>
+    <script src="assets/libs/bootstrap/bootstrap.js"></script>
+    <script src="assets/libs/underscore/underscore.js"></script>
+
+    <!--3rd Party modules-->
+    <script src="assets/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="assets/libs/angular-route/angular-route.js"></script>
+    <script src="assets/libs/angular-toastr/angular-toastr.tpls.js"></script>
+    <script src="assets/libs/restangular/restangular.js"></script>
+
+    <!--App Components-->
+    <script src="app/app.js"></script>
+    <script src="app/common/app-common.js"></script>
+
+    <!--App Controller-->
+    <script src="app/common/nav/header-ctrl.js"></script>
+</body>
+</html>

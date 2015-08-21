@@ -1,0 +1,78 @@
+﻿body {
+    /*background: url("../images/main-section-background.png") bottom center no-repeat fixed;*/
+    background-color: white;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+    padding-left: 90px;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 50px !important;
+    line-height: 47px !important;
+    background-color: #061C30;
+    border-bottom: 2px solid #020a3c;
+    -webkit-app-region: drag;
+}
+
+    .header input {
+        -webkit-app-region: no-drag;
+    }
+
+    .header button {
+        -webkit-app-region: no-drag;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white;
+    }
+
+        .header button:focus {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: white;
+        }
+
+    .header #btnMinimize {
+    }
+
+    .header #btnMaximize {
+    }
+
+    .header #btnClose {
+    }
+
+        .header #btnClose:hover {
+            border: none;
+            background-color: red;
+            color: white;
+        }
+
+    .header .header-img {
+        color: white !important;
+    }
+
+.rounded {
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+
+.input-group {
+    padding-top: 7px !important;
+}
+
+#inputGroup{
+    background-color: #061C30;
+    color: white;
+}

@@ -1,0 +1,28 @@
+﻿<div class="header" ng-controller="HeaderCtrl as vm">
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 text-center">
+            <img src="../../../assets/images/logo.png" alt="Tv Show Record :)" class="header-img" />
+        </div>
+        <div class="col-xs-7 col-sm-7 col-md-9 col-lg-9">
+            <div class="col-sm-8 pull-left">
+                <div class="input-group text-left">
+                    <span class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </span>
+                    <input type="text" class="form-control rounded"
+                           placeholder="Pressione enter para pesquisar..." title="Procurando algo?" id="inputGroup"
+                           typeahead="item for item in vm.list | filter:$viewValue | limitTo:14"
+                           typeahead-append-to-body="true"
+                           ng-model="vm.selectedItem" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+            <!--<div class="pull-right">
+                <button id="btnMinimize" type="button" ng-click="vm.minimize()" class="btn btn-default"><i class="fa fa-minus fa-lg" aria-hidden="true"></i></button>
+                <button id="btnMaximize" type="button" ng-click="vm.handleMaximize()" class="btn btn-default" aria-hidden="true"><span ng-class="{'glyphicon glyphicon-resize-full' : vm.isMaximized == false , 'glyphicon glyphicon-resize-small': vm.isMaximized == true}" aria-hidden="true"></span></button>
+                <button id="btnClose" type="button" ng-click="vm.close()" class="btn btn-default"><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+            </div>-->
+        </div>
+    </div>
+</div>
