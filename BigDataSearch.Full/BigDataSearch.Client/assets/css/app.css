@@ -22,6 +22,7 @@
     background-color: #061C30;
     border-bottom: 2px solid #020a3c;
     -webkit-app-region: drag;
+    z-index: 9999 !important;
 }
 
     .header input {
@@ -72,7 +73,15 @@
     padding-top: 7px !important;
 }
 
-#inputGroup{
+#inputGroup {
     background-color: #061C30;
     color: white;
+}
+
+.main-container {
+    padding-top: 50px;
+}
+
+.logo-border {
+    border: 1px solid black;
 }

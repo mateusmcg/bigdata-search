@@ -4,18 +4,28 @@
             <img src="../../../assets/images/logo.png" alt="Tv Show Record :)" class="header-img" />
         </div>
         <div class="col-xs-7 col-sm-7 col-md-9 col-lg-9">
-            <div class="col-sm-8 pull-left">
-                <div class="input-group text-left">
-                    <span class="input-group-addon">
-                        <i class="fa fa-search"></i>
-                    </span>
-                    <input type="text" class="form-control rounded"
-                           placeholder="Pressione enter para pesquisar..." title="Procurando algo?" id="inputGroup"
-                           typeahead="item for item in vm.list | filter:$viewValue | limitTo:14"
-                           typeahead-append-to-body="true"
-                           ng-model="vm.selectedItem" />
+            <form name="searchForm" ng-submit="vm.search()">
+                <div class="col-sm-6 pull-left">
+                    <div class="input-group text-left">
+                        <span class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                        <input type="text" class="form-control rounded"
+                               placeholder="Pressione enter para pesquisar..." title="Procurando algo?" id="inputGroup"
+                               ng-model="vm.headerModel.hashtag" />
+                    </div>
                 </div>
-            </div>
+                <div class="col-sm-2 pull-left">
+                    <div class="input-group text-left">
+                        <input type="number" placeholder="Qtd itens..." ng-model="vm.headerModel.count" min="0" max="1000" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-sm-2 pull-left">
+                    <div class="input-group text-left">
+                        <input type="submit" class="form-control btn btn-primary" />
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
             <!--<div class="pull-right">
