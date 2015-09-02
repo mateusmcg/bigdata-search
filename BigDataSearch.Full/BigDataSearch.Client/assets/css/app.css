@@ -85,3 +85,7 @@
 .logo-border {
     border: 1px solid black;
 }
+
+.img-circle {
+    border-radius: 50%;
+}

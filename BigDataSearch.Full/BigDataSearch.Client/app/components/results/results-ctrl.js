@@ -1,12 +1,13 @@
 ﻿'use strict';
 
-app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', '$http', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, $http) {
+app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', '$http', '$sce', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, $http, $sce) {
 
     var vm = this;
 
     vm.resultsCtrl = {};
 
     vm.loadResults = loadResults;
+    vm.loadIFrame = loadIFrame;
     vm.toggleGooglePlusResults = toggleGooglePlusResults;
     vm.toggleGooglePlusPosts = toggleGooglePlusPosts;
     vm.toggleInstagramResults = toggleInstagramResults;
@@ -44,10 +45,14 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
         vm.instagramPostsToggle = true;
     };
 
+    function loadIFrame(html) {        
+        return $sce.trustAsHtml(html);
+    }
+
     function googleRequest() {
         var googleData = {
-            query: $routeParams.search,
-            maxResults: $routeParams.count,
+            query: $routeParams.search.replace('#', ''),
+            maxResults: $routeParams.count ? $routeParams.count : 20,
             key: 'AIzaSyCk_hJqRoLyMVvX0MGHgh0plhJ6A_cj5T4'
         }
 
@@ -61,14 +66,14 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
             //});
 
         }, function (error) {
-            var teste = error;
+            console.log('Erro na API do google: ' + error);
         });
     };
 
     function instagramRequest() {
-        var instagramQuery = $routeParams.search;
+        var instagramQuery = $routeParams.search.replace('#', '');
         var instagramData = {
-            count: $routeParams.count,
+            count: $routeParams.count ? $routeParams.count : 20,
             client_id: credentials.instagramClientId
         }
 
@@ -76,7 +81,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
             vm.instagramData = success;
 
         }, function (error) {
-            var er = error;
+            console.log('Erro na API do instagram: ' + error);
         });
     };
 

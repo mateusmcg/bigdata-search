@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('app.external.components', ['restangular', 'toastr', 'ui.bootstrap', 'LocalStorageModule']);
+angular.module('app.external.components', ['restangular', 'toastr', 'ui.bootstrap', 'LocalStorageModule', 'ngTwitter']);
 
 angular.module('app.components', ['app.common.factory', 'app.common.directives']);
 

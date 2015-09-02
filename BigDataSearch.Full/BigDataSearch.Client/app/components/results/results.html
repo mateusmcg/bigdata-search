@@ -13,8 +13,11 @@
 
         <div id="googlePlusResults" app-toggle="vm.googlePlusResultsToggle" class="row logo-border">
             <div ng-repeat="googlePost in vm.googlePlusData">
-                {{googlePost.title}}
-                <a href="{{googlePost.url}}">Go to Post !</a>
+                <div class="text-center">
+                    <div app-load-html="googlePost.object">
+                    </div>
+                    <hr style="border: 2px solid black" />
+                </div>
             </div>
         </div>
 
@@ -36,8 +39,15 @@
 
         <div id="instagramResults" app-toggle="vm.instagramResultsToggle" class="row logo-border">
             <div ng-repeat="instagramPost in vm.instagramData">
-                {{instagramPost.caption.text}}
-                <a href="{{instagramPost.link}}">Go to Post !</a>
+                <div class="text-center">
+                    <div>
+                        <a href="{{instagramPost.link}}"><img ng-src="{{instagramPost.images.low_resolution.url}}" class="img-circle" /></a>
+                    </div>
+                    <div>
+                        {{instagramPost.caption.text}}
+                    </div>
+                    <hr style="border: 2px solid black" />
+                </div>
             </div>
         </div>
 

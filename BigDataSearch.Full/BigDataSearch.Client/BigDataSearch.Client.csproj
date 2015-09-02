@@ -109,6 +109,7 @@
     <Content Include="assets\libs\angular-route\angular-route.js" />
     <Content Include="assets\libs\angular-toastr\angular-toastr.js" />
     <Content Include="assets\libs\angular-toastr\angular-toastr.tpls.js" />
+    <Content Include="assets\libs\angular-twitter-api\ng-twitter-api.js" />
     <Content Include="assets\libs\angular\angular.min.js" />
     <Content Include="assets\libs\bootstrap\bootstrap.js" />
     <Content Include="assets\libs\jquery\jquery.js" />
