@@ -1,59 +1,73 @@
 ﻿'use strict';
 
-app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', '$http', '$sce', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, $http, $sce) {
+app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', 'app.common.Utilities', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, Utilities) {
 
     var vm = this;
 
     vm.resultsCtrl = {};
 
     vm.loadResults = loadResults;
-    vm.loadIFrame = loadIFrame;
     vm.toggleGooglePlusResults = toggleGooglePlusResults;
     vm.toggleGooglePlusPosts = toggleGooglePlusPosts;
+    vm.toggleGooglePlusRanking = toggleGooglePlusRanking;
     vm.toggleInstagramResults = toggleInstagramResults;
     vm.toggleInstagramPosts = toggleInstagramPosts;
+    vm.toggleInstagramRanking = toggleInstagramRanking;
     vm.googlePlusPostsToggle = false;
     vm.googlePlusResultsToggle = false;
+    vm.googlePlusRankingToggle = false;
     vm.instagramPostsToggle = false;
     vm.instagramResultsToggle = false;
+    vm.instagramRankingToggle = false;
 
     vm.loadResults();
 
     function loadResults() {
         googleRequest();
-
         instagramRequest();
     };
 
-    function toggleGooglePlusResults() {
-        vm.googlePlusResultsToggle = true;
+    function toggleGooglePlusResults() {        
         vm.googlePlusPostsToggle = false;
+        vm.googlePlusRankingToggle = false;
+        vm.googlePlusResultsToggle = true;
     };
 
     function toggleGooglePlusPosts() {
         vm.googlePlusResultsToggle = false;
+        vm.googlePlusRankingToggle = false;
         vm.googlePlusPostsToggle = true;
     };
 
+    function toggleGooglePlusRanking() {
+        vm.googlePlusResultsToggle = false;        
+        vm.googlePlusPostsToggle = false;
+        vm.googlePlusRankingToggle = true;
+    };
+
     function toggleInstagramResults() {
-        vm.instagramResultsToggle = true;
+        vm.instagramRankingToggle = false;
         vm.instagramPostsToggle = false;
+        vm.instagramResultsToggle = true;
     };
 
     function toggleInstagramPosts() {
         vm.instagramResultsToggle = false;
+        vm.instagramRankingToggle = false;
         vm.instagramPostsToggle = true;
     };
 
-    function loadIFrame(html) {        
-        return $sce.trustAsHtml(html);
-    }
+    function toggleInstagramRanking() {
+        vm.instagramPostsToggle = false;
+        vm.instagramResultsToggle = false;
+        vm.instagramRankingToggle = true;
+    };
 
     function googleRequest() {
         var googleData = {
             query: $routeParams.search.replace('#', ''),
             maxResults: $routeParams.count ? $routeParams.count : 20,
-            key: 'AIzaSyCk_hJqRoLyMVvX0MGHgh0plhJ6A_cj5T4'
+            key: credentials.googlePlusKey
         }
 
         GooglePlusRestAngular.all('activities').getList(googleData).then(function (success) {
@@ -78,8 +92,10 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
         }
 
         InstagramRestAngular.all('/' + instagramQuery + '/media/recent').getList(instagramData).then(function (success) {
+            angular.forEach(success, function (data, index) {
+                Utilities.removeStopWords("teste");
+            });
             vm.instagramData = success;
-
         }, function (error) {
             console.log('Erro na API do instagram: ' + error);
         });

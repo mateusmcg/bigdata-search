@@ -25,7 +25,8 @@ angular.module('app.common.directives').directive('appLoadHtml', ['$compile', fu
             var imageUrls = [];
             if (object.attachments && object.attachments.length > 0) {
                 angular.forEach(object.attachments, function (item, index) {
-                    imageUrls.push('<br><a href="' + item.url + '"><img class="img-circle" src="' + item.image.url + '" /></a>');
+                    if (item.image)
+                        imageUrls.push('<br><a href="' + item.url + '"><img class="img-circle" src="' + item.image.url + '" /></a>');
                 });
             }
 
