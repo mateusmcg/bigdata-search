@@ -4,6 +4,8 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
 
     var vm = this;
 
+    var sentiment = require('sentiment');    
+
     vm.resultsCtrl = {};
 
     vm.loadResults = loadResults;
@@ -93,7 +95,8 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
 
         InstagramRestAngular.all('/' + instagramQuery + '/media/recent').getList(instagramData).then(function (success) {
             angular.forEach(success, function (data, index) {
-                Utilities.removeStopWords("teste");
+                var postSentiment = sentiment(data.caption.text);
+                data.score = postSentiment.score;
             });
             vm.instagramData = success;
         }, function (error) {

@@ -118,7 +118,9 @@
     <Content Include="assets\libs\jquery\jquery.js" />
     <Content Include="assets\libs\restangular\restangular.js" />
     <Content Include="assets\libs\underscore\underscore.js" />
+    <Content Include="bundle.js" />
     <Content Include="index.html" />
+    <Content Include="main.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +138,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63299</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

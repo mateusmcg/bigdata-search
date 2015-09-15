@@ -7,7 +7,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" ng-click="vm.toggleGooglePlusResults()"><a href="" role="tab">Resultados</a></li>
                 <li role="presentation" ng-click="vm.toggleGooglePlusRanking()"><a href="" role="tab">Ranking</a></li>
-                <li role="presentation" ng-click="vm.toggleGooglePlusPosts()"><a href="" role="tab">Posts</a></li>                
+                <li role="presentation" ng-click="vm.toggleGooglePlusPosts()"><a href="" role="tab">Posts</a></li>
             </ul>
         </div>
 
@@ -37,7 +37,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" ng-click="vm.toggleInstagramResults()"><a href="" role="tab">Resultados</a></li>
                 <li role="presentation" ng-click="vm.toggleInstagramRanking()"><a href="" role="tab">Ranking</a></li>
-                <li role="presentation" ng-click="vm.toggleInstagramPosts()"><a href="" role="tab">Posts</a></li>                
+                <li role="presentation" ng-click="vm.toggleInstagramPosts()"><a href="" role="tab">Posts</a></li>
             </ul>
         </div>
 
@@ -51,6 +51,11 @@
 
         <div id="instagramPosts" app-toggle="vm.instagramPostsToggle" class="row logo-border">
             <div ng-repeat="instagramPost in vm.instagramData">
+                <div class="text-right">
+                    <div>
+                        <b>{{instagramPost.score}}</b>
+                    </div>
+                </div>
                 <div class="text-center">
                     <div>
                         <a href="{{instagramPost.link}}"><img ng-src="{{instagramPost.images.low_resolution.url}}" class="img-circle" /></a>
@@ -61,6 +66,6 @@
                     <hr style="border: 2px solid black" />
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </div>
