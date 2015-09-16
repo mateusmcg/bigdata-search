@@ -53,7 +53,9 @@
             <div ng-repeat="instagramPost in vm.instagramData">
                 <div class="text-right">
                     <div>
-                        <b>{{instagramPost.score}}</b>
+                        <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../../assets/images/positive.png" tooltip="Este post é legal :)" tooltip-append-to-body="true" tooltip-placement="left" />
+                        <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../../assets/images/negative.png" tooltip="Este post é ruim :(" tooltip-append-to-body="true" tooltip-placement="left" />
+                        <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro -_-" tooltip-append-to-body="true" tooltip-placement="left" />
                     </div>
                 </div>
                 <div class="text-center">
@@ -63,7 +65,7 @@
                     <div>
                         {{instagramPost.caption.text}}
                     </div>
-                    <hr style="border: 2px solid black" />
+                    <hr style="border: 2px solid black; margin-bottom: 0px;" />
                 </div>
             </div>
         </div>
