@@ -1,10 +1,10 @@
 ﻿'use strict';
 
-app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', 'app.common.Utilities', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, Utilities) {
+app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', 'app.common.Utilities', '$scope', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, Utilities, $scope) {
 
     var vm = this;
 
-    var sentiment = require('sentiment');    
+    var sentiment = new Sentimood();
 
     vm.resultsCtrl = {};
 
@@ -29,7 +29,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
         instagramRequest();
     };
 
-    function toggleGooglePlusResults() {        
+    function toggleGooglePlusResults() {
         vm.googlePlusPostsToggle = false;
         vm.googlePlusRankingToggle = false;
         vm.googlePlusResultsToggle = true;
@@ -42,7 +42,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
     };
 
     function toggleGooglePlusRanking() {
-        vm.googlePlusResultsToggle = false;        
+        vm.googlePlusResultsToggle = false;
         vm.googlePlusPostsToggle = false;
         vm.googlePlusRankingToggle = true;
     };
@@ -68,21 +68,48 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
     function googleRequest() {
         var googleData = {
             query: $routeParams.search.replace('#', ''),
-            maxResults: $routeParams.count ? $routeParams.count : 20,
+            maxResults: $routeParams.count > 20 ? 20 : $routeParams.count,
             key: credentials.googlePlusKey
         }
+
+        var resultCount = $routeParams.count;
 
         GooglePlusRestAngular.all('activities').getList(googleData).then(function (success) {
             vm.googlePlusData = success;
 
-            //googleData.pageToken = success.nextPage;
+            angular.forEach(success, function (item, index) {
+                var fullPost = item.title + ' ' + item.object.content;
+                var postSentiment = sentiment.analyze(fullPost);
+                item.score = postSentiment.score;
+            });
 
-            //GooglePlusRestAngular.all('activities').getList(googleData).then(function (success) {
-            //    vm.googlePlusData.push(success);
-            //});
+            var numberOfPages = resultCount % googleData.maxResults == 0 ? resultCount / googleData.maxResults : parseInt(resultCount / googleData.maxResults) + 1;
 
+            var promise;
+            var currentPage = 2;
+
+            for (var i = 0; i < numberOfPages; i++) {
+                if (!promise)
+                    promise = GooglePlusRestAngular.all('activities').getList(googleData);
+                else {
+                    promise = promise.then(function (page) {
+                        angular.forEach(page, function (item, index) {
+                            vm.googlePlusData.push(item);
+                            var fullPost = item.title + ' ' + item.object.content;
+                            var postSentiment = sentiment.analyze(fullPost);
+                            item.score = postSentiment.score;
+                        });
+
+                        currentPage++;
+                        googleData.pageToken = page.nextPage;
+                        googleData.maxResults = currentPage == numberOfPages ? resultCount % googleData.maxResults : 20;
+
+                        return GooglePlusRestAngular.all('activities').getList(googleData);
+                    });
+                }
+            }
         }, function (error) {
-            console.log('Erro na API do google: ' + error);
+            console.log('Erro na API do google: ', error);
         });
     };
 
@@ -95,7 +122,9 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
 
         InstagramRestAngular.all('/' + instagramQuery + '/media/recent').getList(instagramData).then(function (success) {
             angular.forEach(success, function (data, index) {
-                var postSentiment = sentiment(data.caption.text);
+                var fullPost = data.caption ? data.caption.text + ' ' : '';
+                fullPost = fullPost ? fullPost.replace(/#/g, '') : fullPost.concat(data.tags.join(' '));
+                var postSentiment = sentiment.analyze(fullPost);
                 data.score = postSentiment.score;
             });
             vm.instagramData = success;

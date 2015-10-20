@@ -20,12 +20,22 @@
         </div>
 
         <div id="googlePlusPosts" app-toggle="vm.googlePlusPostsToggle" class="row logo-border">
+            <h2 ng-if="vm.googlePlusPosts.length == 0">Não encontramos nenhum post :(</h2>
             <div ng-repeat="googlePost in vm.googlePlusData">
-                <div class="text-center">
-                    <div app-load-html="googlePost.object">
+                <div style="overflow-x:auto;">
+                    <div class="text-right">
+                        <div>                            
+                            <img width="48" height="48" ng-if="googlePost.score > 0" src="../../../assets/images/positive.png" tooltip="Este post é legal :)" tooltip-append-to-body="true" tooltip-placement="left" />
+                            <img width="48" height="48" ng-if="googlePost.score < 0" src="../../../assets/images/negative.png" tooltip="Este post é ruim :(" tooltip-append-to-body="true" tooltip-placement="left" />
+                            <img width="48" height="48" ng-if="googlePost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro -_-" tooltip-append-to-body="true" tooltip-placement="left" />
+                        </div>
                     </div>
-                    <hr style="border: 2px solid black" />
+                    <div class="text-center">
+                        <div app-load-html="googlePost.object">
+                        </div>                        
+                    </div>
                 </div>
+                <hr style="border: 2px solid black" />
             </div>
         </div>
     </div>
@@ -50,23 +60,26 @@
         </div>
 
         <div id="instagramPosts" app-toggle="vm.instagramPostsToggle" class="row logo-border">
+            <h2 ng-if="vm.instagramData.length == 0">Não encontramos nenhum post :(</h2>
             <div ng-repeat="instagramPost in vm.instagramData">
-                <div class="text-right">
-                    <div>
-                        <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../../assets/images/positive.png" tooltip="Este post é legal :)" tooltip-append-to-body="true" tooltip-placement="left" />
-                        <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../../assets/images/negative.png" tooltip="Este post é ruim :(" tooltip-append-to-body="true" tooltip-placement="left" />
-                        <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro -_-" tooltip-append-to-body="true" tooltip-placement="left" />
+                <div style="overflow-x:auto;">
+                    <div class="text-right">
+                        <div>
+                            <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../../assets/images/positive.png" tooltip="Este post é legal :)" tooltip-append-to-body="true" tooltip-placement="left" />
+                            <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../../assets/images/negative.png" tooltip="Este post é ruim :(" tooltip-append-to-body="true" tooltip-placement="left" />
+                            <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro -_-" tooltip-append-to-body="true" tooltip-placement="left" />
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div>
+                            <a href="{{instagramPost.link}}"><img ng-src="{{instagramPost.images.low_resolution.url}}" class="img-circle" /></a>
+                        </div>
+                        <div>
+                            {{instagramPost.caption.text}}
+                        </div>
                     </div>
                 </div>
-                <div class="text-center">
-                    <div>
-                        <a href="{{instagramPost.link}}"><img ng-src="{{instagramPost.images.low_resolution.url}}" class="img-circle" /></a>
-                    </div>
-                    <div>
-                        {{instagramPost.caption.text}}
-                    </div>
-                    <hr style="border: 2px solid black; margin-bottom: 0px;" />
-                </div>
+                <hr style="border: 2px solid black; margin-bottom: 0px;" />
             </div>
         </div>
     </div>

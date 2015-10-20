@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -119,6 +120,7 @@
     <Content Include="assets\libs\bootstrap\bootstrap.js" />
     <Content Include="assets\libs\jquery\jquery.js" />
     <Content Include="assets\libs\restangular\restangular.js" />
+    <Content Include="assets\libs\sentimood\sentimood.js" />
     <Content Include="assets\libs\underscore\underscore.js" />
     <Content Include="bundle.js" />
     <Content Include="index.html" />
