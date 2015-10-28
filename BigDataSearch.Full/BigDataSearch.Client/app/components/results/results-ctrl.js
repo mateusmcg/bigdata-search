@@ -77,10 +77,13 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
         GooglePlusRestAngular.all('activities').getList(googleData).then(function (success) {
             vm.googlePlusData = success;
 
+            var postNumber = 1;
+
             angular.forEach(success, function (item, index) {
                 var fullPost = item.title + ' ' + item.object.content;
                 var postSentiment = sentiment.analyze(fullPost);
                 item.score = postSentiment.score;
+                item.postNumber = postNumber++;
             });
 
             var numberOfPages = resultCount % googleData.maxResults == 0 ? resultCount / googleData.maxResults : parseInt(resultCount / googleData.maxResults) + 1;
@@ -98,6 +101,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                             var fullPost = item.title + ' ' + item.object.content;
                             var postSentiment = sentiment.analyze(fullPost);
                             item.score = postSentiment.score;
+                            item.postNumber = postNumber++;
                         });
 
                         currentPage++;

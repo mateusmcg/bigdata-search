@@ -62,6 +62,7 @@
     <Content Include="app\common\directives\directives.js" />
     <Content Include="app\common\factory\factory.js" />
     <Content Include="app\common\listas\listas.js" />
+    <Content Include="app\common\sentimentos.js" />
     <Content Include="app\common\stopwords\stopwords.js" />
     <Content Include="app\common\utilities\utilities.js" />
     <Content Include="app\components\results\results-ctrl.js" />

@@ -23,6 +23,9 @@
             <h2 ng-if="vm.googlePlusPosts.length == 0">Não encontramos nenhum post :(</h2>
             <div ng-repeat="googlePost in vm.googlePlusData">
                 <div style="overflow-x:auto;">
+                    <div class="text-left">
+                        {{googlePost.postNumber}}
+                    </div>
                     <div class="text-right">
                         <div>                            
                             <img width="48" height="48" ng-if="googlePost.score > 0" src="../../../assets/images/positive.png" tooltip="Este post é legal :)" tooltip-append-to-body="true" tooltip-placement="left" />
