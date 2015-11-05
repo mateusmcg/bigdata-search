@@ -81,8 +81,10 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
 
             angular.forEach(success, function (item, index) {
                 var fullPost = item.title + ' ' + item.object.content;
-                var postSentiment = sentiment.analyze(fullPost);
+                var postSentiment = Utilities.analyzeSentiment(fullPost);
+                //var postSentiment = sentiment.analyze(fullPost);
                 item.score = postSentiment.score;
+                item.words = item.score > 0 ? postSentiment.positive.words : postSentiment.negative.words;
                 item.postNumber = postNumber++;
             });
 
@@ -99,8 +101,10 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                         angular.forEach(page, function (item, index) {
                             vm.googlePlusData.push(item);
                             var fullPost = item.title + ' ' + item.object.content;
-                            var postSentiment = sentiment.analyze(fullPost);
+                            var postSentiment = Utilities.analyzeSentiment(fullPost);
+                            //var postSentiment = sentiment.analyze(fullPost);
                             item.score = postSentiment.score;
+                            item.words = item.score > 0 ? postSentiment.positive.words : postSentiment.negative.words;
                             item.postNumber = postNumber++;
                         });
 
@@ -125,11 +129,16 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
         }
 
         InstagramRestAngular.all('/' + instagramQuery + '/media/recent').getList(instagramData).then(function (success) {
+            var postNumber = 1;
             angular.forEach(success, function (data, index) {
                 var fullPost = data.caption ? data.caption.text + ' ' : '';
                 fullPost = fullPost ? fullPost.replace(/#/g, '') : fullPost.concat(data.tags.join(' '));
-                var postSentiment = sentiment.analyze(fullPost);
+                var postSentiment = Utilities.analyzeSentiment(fullPost);
+                //var postSentiment = sentiment.analyze(fullPost);
                 data.score = postSentiment.score;
+                data.words = data.score > 0 ? postSentiment.positive.words : postSentiment.negative.words;
+                data.postNumber = postNumber;
+                postNumber++;
             });
             vm.instagramData = success;
         }, function (error) {

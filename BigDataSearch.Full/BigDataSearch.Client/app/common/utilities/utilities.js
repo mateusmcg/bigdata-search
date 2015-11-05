@@ -2,7 +2,7 @@
 
 angular.module('app.common.utilities', []);
 
-angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwords-pt', 'stopwords-en', 'stopwords-es', 'listaBoa', 'listaRuim', 'listaSemStopWords', function (stopwordsPt, stopwordsEn, stopwordsEs, listaBoa, listaRuim, listaSemStopWords) {
+angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwords-pt', 'stopwords-en', 'stopwords-es', 'lista-pt', 'lista-en', 'lista-es', function (stopwordsPt, stopwordsEn, stopwordsEs, listaPt, listaEn, listaEs) {
 
     //Responsável por remover as stopwords do post e armazenar cada palavra na 'listaSemStopWords'
     this.removeStopWords = function (post) {
@@ -39,7 +39,7 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
     }
 
     this.$get = [function () {
-        return {            
+        return {
             analyzeSentiment: this.analyzeSentiment,
             calcRanking: this.calcRanking
         }
@@ -55,9 +55,22 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
         words = [];
         for (i = j = 0, len = tokens.length; j < len; i = ++j) {
             item = tokens[i];
-            if (afinn.hasOwnProperty(item)) {
-                if (afinn[item] > 0) {
-                    addPush(item, afinn[item]);
+            //Português
+            if (listaPt.hasOwnProperty(item)) {
+                if (listaPt[item] > 0) {
+                    addPush(item, listaPt[item]);
+                }
+            }
+            //Inglês
+            else if (listaEn.hasOwnProperty(item)) {
+                if (listaEn[item] > 0) {
+                    addPush(item, listaEn[item]);
+                }
+            }
+            //Espanhol
+            else if (listaEs.hasOwnProperty(item)) {
+                if (listaEs[item] > 0) {
+                    addPush(item, listaEs[item]);
                 }
             }
         }
@@ -78,9 +91,22 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
         words = [];
         for (i = j = 0, len = tokens.length; j < len; i = ++j) {
             item = tokens[i];
-            if (afinn.hasOwnProperty(item)) {
-                if (afinn[item] < 0) {
-                    addPush(item, afinn[item]);
+            //Português
+            if (listaPt.hasOwnProperty(item)) {
+                if (listaPt[item] < 0) {
+                    addPush(item, listaPt[item]);
+                }
+            }
+                //Inglês
+            else if (listaEn.hasOwnProperty(item)) {
+                if (listaEn[item] < 0) {
+                    addPush(item, listaEn[item]);
+                }
+            }
+                //Espanhol
+            else if (listaEs.hasOwnProperty(item)) {
+                if (listaEs[item] < 0) {
+                    addPush(item, listaEs[item]);
                 }
             }
         }
@@ -89,7 +115,7 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
             comparative: hits / words.length,
             words: words
         };
-    };    
+    };
 
     function getTokens(str) {
         var cleanPost;

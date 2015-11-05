@@ -3,6 +3,7 @@
 var app = angular.module('BigDataSearchApp', [
         //## Angular modules
         'ngRoute',
+        'ui.bootstrap',
 
         //## Commons
         'app.common']);

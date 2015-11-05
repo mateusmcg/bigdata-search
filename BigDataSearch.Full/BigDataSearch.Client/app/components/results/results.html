@@ -28,8 +28,8 @@
                     </div>
                     <div class="text-right">
                         <div>                            
-                            <img width="48" height="48" ng-if="googlePost.score > 0" src="../../../assets/images/positive.png" tooltip="Este post é legal :)" tooltip-append-to-body="true" tooltip-placement="left" />
-                            <img width="48" height="48" ng-if="googlePost.score < 0" src="../../../assets/images/negative.png" tooltip="Este post é ruim :(" tooltip-append-to-body="true" tooltip-placement="left" />
+                            <img width="48" height="48" ng-if="googlePost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{googlePost.score}}" popover="Palavras positivas: {{googlePost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                            <img width="48" height="48" ng-if="googlePost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{googlePost.score}}" popover="Palavras negativas: {{googlePost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
                             <img width="48" height="48" ng-if="googlePost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro -_-" tooltip-append-to-body="true" tooltip-placement="left" />
                         </div>
                     </div>
@@ -66,10 +66,13 @@
             <h2 ng-if="vm.instagramData.length == 0">Não encontramos nenhum post :(</h2>
             <div ng-repeat="instagramPost in vm.instagramData">
                 <div style="overflow-x:auto;">
+                    <div class="text-left">
+                        {{instagramPost.postNumber}}
+                    </div>
                     <div class="text-right">
                         <div>
-                            <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../../assets/images/positive.png" tooltip="Este post é legal :)" tooltip-append-to-body="true" tooltip-placement="left" />
-                            <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../../assets/images/negative.png" tooltip="Este post é ruim :(" tooltip-append-to-body="true" tooltip-placement="left" />
+                            <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras positivas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                            <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras negativas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
                             <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro -_-" tooltip-append-to-body="true" tooltip-placement="left" />
                         </div>
                     </div>

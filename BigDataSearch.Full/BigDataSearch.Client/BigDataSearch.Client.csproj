@@ -62,11 +62,19 @@
     <Content Include="app\common\directives\directives.js" />
     <Content Include="app\common\factory\factory.js" />
     <Content Include="app\common\listas\listas.js" />
-    <Content Include="app\common\sentimentos.js" />
     <Content Include="app\common\stopwords\stopwords.js" />
     <Content Include="app\common\utilities\utilities.js" />
     <Content Include="app\components\results\results-ctrl.js" />
     <Content Include="app\components\results\results.html" />
+    <Content Include="assets\css\angular-toastr.css" />
+    <Content Include="assets\css\bootstrap-theme.css" />
+    <Content Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\font-awesome.css" />
+    <Content Include="assets\css\toast.html" />
+    <Content Include="assets\css\ui-bootstrap-csp.css" />
+    <Content Include="assets\css\weather-icons-wind.css" />
+    <Content Include="assets\css\weather-icons.css" />
+    <Content Include="assets\css\xeditable.css" />
     <Content Include="assets\fonts\fontawesome-webfont.eot" />
     <Content Include="assets\fonts\fontawesome-webfont.ttf" />
     <Content Include="assets\fonts\fontawesome-webfont.woff" />
@@ -80,8 +88,8 @@
     <Content Include="assets\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="assets\fonts\weathericons-regular-webfont.woff" />
     <Content Include="assets\fonts\weathericons-regular-webfont.woff2" />
-    <Content Include="assets\css\bootstrap\bootstrap.css.map" />
-    <Content Include="assets\css\font-awesome\font-awesome.css.map" />
+    <Content Include="assets\css\bootstrap.css.map" />
+    <Content Include="assets\css\font-awesome.css.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -94,21 +102,14 @@
     <Content Include="app\common\app-common.js" />
     <Content Include="app\common\nav\header-ctrl.js" />
     <Content Include="app\common\nav\header.html" />
-    <Content Include="assets\css\angular-toastr\angular-toastr.css" />
-    <Content Include="assets\css\angular-toastr\toast.html" />
-    <Content Include="assets\css\angular-xeditable\xeditable.css" />
     <Content Include="assets\css\app.css" />
-    <Content Include="assets\css\bootstrap\bootstrap-theme.css" />
-    <Content Include="assets\css\bootstrap\bootstrap.css" />
-    <Content Include="assets\css\font-awesome\font-awesome.css" />
-    <Content Include="assets\css\weather-icons\weather-icons-wind.css" />
-    <Content Include="assets\css\weather-icons\weather-icons.css" />
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\fonts\weathericons-regular-webfont.svg" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\main-section-background.png" />
     <Content Include="assets\images\negative.png" />
+    <Content Include="assets\images\neutral.png" />
     <Content Include="assets\images\positive.png" />
     <Content Include="assets\libs\angular-bootstrap\ui-bootstrap-tpls.js" />
     <Content Include="assets\libs\angular-bootstrap\ui-bootstrap.js" />
@@ -123,9 +124,7 @@
     <Content Include="assets\libs\restangular\restangular.js" />
     <Content Include="assets\libs\sentimood\sentimood.js" />
     <Content Include="assets\libs\underscore\underscore.js" />
-    <Content Include="bundle.js" />
     <Content Include="index.html" />
-    <Content Include="main.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
