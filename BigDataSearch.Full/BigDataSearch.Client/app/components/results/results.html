@@ -54,15 +54,22 @@
             </ul>
         </div>
 
-        <div id="instagramResults" app-toggle="vm.instagramResultsToggle">
+        <div ng-if="!vm.instagramData">
+            <img width="64" height="64" src="../../../assets/images/loading.gif"/>
+        </div>
+
+        <div ng-if="vm.instagramData" id="instagramResults" app-toggle="vm.instagramResultsToggle">
             <h2>Resultados</h2>
         </div>
 
-        <div id="instagramRanking" app-toggle="vm.instagramRankingToggle">
+        <div ng-if="vm.instagramData" id="instagramRanking" app-toggle="vm.instagramRankingToggle">
             <h2>Ranking</h2>
+            <div ng-repeat="rankItem in vm.instagramRanking">
+                <span>1. {{rankItem.palavra}} - {{rankItem.count}} vezes</span>
+            </div>
         </div>
 
-        <div id="instagramPosts" app-toggle="vm.instagramPostsToggle" class="row logo-border">
+        <div ng-if="vm.instagramData" id="instagramPosts" app-toggle="vm.instagramPostsToggle" class="row logo-border">
             <h2 ng-if="vm.instagramData.length == 0">Não encontramos nenhum post :(</h2>
             <div ng-repeat="instagramPost in vm.instagramData">
                 <div style="overflow-x:auto;">

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', 'app.common.Utilities', '$scope', 'listaRanking', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, Utilities, $scope, listaRanking) {
+app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', 'app.common.Utilities', '$scope', 'listaRanking', '$filter', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, Utilities, $scope, listaRanking, $filter) {
 
     var vm = this;
 
@@ -81,7 +81,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
 
             angular.forEach(success, function (item, index) {
                 var fullPost = item.title + ' ' + item.object.content;
-                var postSentiment = Utilities.analyzeSentiment(fullPost);
+                var postSentiment = Utilities.analyzeSentiment(fullPost, 'GooglePlus');
                 //var postSentiment = sentiment.analyze(fullPost);
                 item.score = postSentiment.score;
                 item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
@@ -101,8 +101,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                         angular.forEach(page, function (item, index) {
                             vm.googlePlusData.push(item);
                             var fullPost = item.title + ' ' + item.object.content;
-                            var postSentiment = Utilities.analyzeSentiment(fullPost);
-                            //var postSentiment = sentiment.analyze(fullPost);
+                            var postSentiment = Utilities.analyzeSentiment(fullPost, 'GooglePlus');                            
                             item.score = postSentiment.score;
                             item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
                             item.postNumber = postNumber++;
@@ -133,8 +132,8 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
             angular.forEach(success, function (data, index) {
                 var fullPost = data.caption ? data.caption.text + ' ' : '';
                 fullPost = fullPost ? fullPost.replace(/#/g, '') : fullPost.concat(data.tags.join(' '));
-                var postSentiment = Utilities.analyzeSentiment(fullPost);
-                //var postSentiment = sentiment.analyze(fullPost);
+                var postSentiment = Utilities.analyzeSentiment(fullPost, 'Instagram');
+                vm.instagramRanking = ($filter('filter')(listaRanking, { socialMidia: 'Instagram' })).sort(function(a, b){ b.count - a.count });
                 data.score = postSentiment.score;
                 data.words = data.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
                 data.postNumber = postNumber;

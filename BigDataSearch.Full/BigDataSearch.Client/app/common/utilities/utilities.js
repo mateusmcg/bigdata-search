@@ -12,12 +12,12 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
     }
 
     //Calcular o percentual de posts bons e ruins, a partir da 'listaBoa' e 'listaRuim'
-    this.analyzeSentiment = function (post) {        
+    this.analyzeSentiment = function (post, socialMidia) {        
         var neg, pos;
         var tokens = getTokens(post);
         tokens = this.removeStopWords(tokens);
-        pos = positivity(tokens);
-        neg = negativity(tokens);
+        pos = positivity(tokens, socialMidia);
+        neg = negativity(tokens, socialMidia);
         return {
             score: pos.score - neg.score,
             comparative: pos.comparative - neg.comparative,
@@ -34,12 +34,12 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
         }
     }];
 
-    var calcRanking = function (word) {
-        var exists = _.where(listaRanking, { palavra: word });
-        exists.length == 0 ? listaRanking.push({ palavra: word, count: 1 }) : _.find(listaRanking, function (item) { return item.palavra == word }).count++;
+    var calcRanking = function (word, socialMidia) {
+        var exists = _.where(listaRanking, { palavra: word, socialMidia: socialMidia });
+        exists.length == 0 ? listaRanking.push({ palavra: word, count: 1, socialMidia: socialMidia }) : _.find(listaRanking, function (item) { return item.palavra == word && item.socialMidia == socialMidia }).count++;
     }
 
-    function positivity(tokens) {
+    function positivity(tokens, socialMidia) {
         var addPush, hits, i, item, j, len, noPunctuation, words;
         addPush = function (t, score) {
             hits += score;
@@ -48,7 +48,7 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
         hits = 0;
         words = [];
         for (i = j = 0, len = tokens.length; j < len; i = ++j) {
-            calcRanking(tokens[i]);
+            calcRanking(tokens[i], socialMidia);
             item = tokens[i];
             //Português
             if (listaPt.hasOwnProperty(item)) {
@@ -76,7 +76,7 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
         };
     };
 
-    function negativity(tokens) {
+    function negativity(tokens, socialMidia) {
         var addPush, hits, i, item, j, len, noPunctuation, words;
         addPush = function (t, score) {
             hits -= score;
@@ -85,7 +85,7 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
         hits = 0;
         words = [];
         for (i = j = 0, len = tokens.length; j < len; i = ++j) {
-            calcRanking(tokens[i]);
+            calcRanking(tokens[i], socialMidia);
             item = tokens[i];
             //Português
             if (listaPt.hasOwnProperty(item)) {
