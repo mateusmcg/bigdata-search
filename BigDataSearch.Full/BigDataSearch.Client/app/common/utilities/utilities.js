@@ -5,19 +5,17 @@ angular.module('app.common.utilities', []);
 angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwords-pt', 'stopwords-en', 'stopwords-es', 'lista-pt', 'lista-en', 'lista-es', function (stopwordsPt, stopwordsEn, stopwordsEs, listaPt, listaEn, listaEs) {
 
     //Responsável por remover as stopwords do post e armazenar cada palavra na 'listaSemStopWords'
-    this.removeStopWords = function (post) {
-        //Iterar sobre a lista de stopwords e removê-los.
-        //Utilizar underscore (_)
-        // _.find() _.remove()...
-        //consultar http://underscorejs.org/
-
-        //Após remover stopwords, adicionar cada palavra do post sem as stopwords na 'listaSemStopWords'
+    this.removeStopWords = function (tokens) {
+        var pt = _.difference(tokens, stopwordsPt);
+        var en = _.difference(pt, stopwordsEn);
+        return _.difference(en, stopwordsEs);
     }
 
     //Calcular o percentual de posts bons e ruins, a partir da 'listaBoa' e 'listaRuim'
-    this.analyzeSentiment = function (post) {
+    this.analyzeSentiment = function (post) {        
         var neg, pos;
         var tokens = getTokens(post);
+        tokens = this.removeStopWords(tokens);
         pos = positivity(tokens);
         neg = negativity(tokens);
         return {
@@ -41,7 +39,8 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
     this.$get = [function () {
         return {
             analyzeSentiment: this.analyzeSentiment,
-            calcRanking: this.calcRanking
+            calcRanking: this.calcRanking,
+            removeStopWords: this.removeStopWords
         }
     }];
 

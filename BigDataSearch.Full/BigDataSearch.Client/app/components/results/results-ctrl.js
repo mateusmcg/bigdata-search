@@ -84,7 +84,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                 var postSentiment = Utilities.analyzeSentiment(fullPost);
                 //var postSentiment = sentiment.analyze(fullPost);
                 item.score = postSentiment.score;
-                item.words = item.score > 0 ? postSentiment.positive.words : postSentiment.negative.words;
+                item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
                 item.postNumber = postNumber++;
             });
 
@@ -104,7 +104,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                             var postSentiment = Utilities.analyzeSentiment(fullPost);
                             //var postSentiment = sentiment.analyze(fullPost);
                             item.score = postSentiment.score;
-                            item.words = item.score > 0 ? postSentiment.positive.words : postSentiment.negative.words;
+                            item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
                             item.postNumber = postNumber++;
                         });
 
@@ -136,7 +136,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                 var postSentiment = Utilities.analyzeSentiment(fullPost);
                 //var postSentiment = sentiment.analyze(fullPost);
                 data.score = postSentiment.score;
-                data.words = data.score > 0 ? postSentiment.positive.words : postSentiment.negative.words;
+                data.words = data.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
                 data.postNumber = postNumber;
                 postNumber++;
             });

@@ -19,9 +19,5 @@ angular.module('app.common.listas').constant('lista-es', {
 
 //Lista onde sera armazenada todas as palavras de todos os posts e quantas vezes elas se repetem.
 angular.module('app.common.listas').constant('listaRanking', [
-    {
-        id: 1,
-        palavra: '',
-        count: 0
-    },
+
 ]);
