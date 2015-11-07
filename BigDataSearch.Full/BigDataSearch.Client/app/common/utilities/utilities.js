@@ -2,7 +2,7 @@
 
 angular.module('app.common.utilities', []);
 
-angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwords-pt', 'stopwords-en', 'stopwords-es', 'lista-pt', 'lista-en', 'lista-es', function (stopwordsPt, stopwordsEn, stopwordsEs, listaPt, listaEn, listaEs) {
+angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwords-pt', 'stopwords-en', 'stopwords-es', 'lista-pt', 'lista-en', 'lista-es', 'listaRanking', function (stopwordsPt, stopwordsEn, stopwordsEs, listaPt, listaEn, listaEs, listaRanking) {
 
     //Responsável por remover as stopwords do post e armazenar cada palavra na 'listaSemStopWords'
     this.removeStopWords = function (tokens) {
@@ -27,22 +27,17 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
         };
     }
 
-    //Retornar o número de palavras especificadas por parâmetro que mais apareceram nos posts
-    //Ex: 1. Thiago - 241 vezes
-    //    2. Japonês - 210 vezes
-    //    Ostentação - 180 vezes
-    //...
-    this.calcRanking = function (qtdPostsNoRanking) {
-
-    }
-
     this.$get = [function () {
         return {
             analyzeSentiment: this.analyzeSentiment,
-            calcRanking: this.calcRanking,
             removeStopWords: this.removeStopWords
         }
     }];
+
+    var calcRanking = function (word) {
+        var exists = _.where(listaRanking, { palavra: word });
+        exists.length == 0 ? listaRanking.push({ palavra: word, count: 1 }) : _.find(listaRanking, function (item) { return item.palavra == word }).count++;
+    }
 
     function positivity(tokens) {
         var addPush, hits, i, item, j, len, noPunctuation, words;
@@ -53,6 +48,7 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
         hits = 0;
         words = [];
         for (i = j = 0, len = tokens.length; j < len; i = ++j) {
+            calcRanking(tokens[i]);
             item = tokens[i];
             //Português
             if (listaPt.hasOwnProperty(item)) {
@@ -89,6 +85,7 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
         hits = 0;
         words = [];
         for (i = j = 0, len = tokens.length; j < len; i = ++j) {
+            calcRanking(tokens[i]);
             item = tokens[i];
             //Português
             if (listaPt.hasOwnProperty(item)) {

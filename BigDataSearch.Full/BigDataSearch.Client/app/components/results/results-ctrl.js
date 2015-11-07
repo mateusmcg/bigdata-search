@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', 'app.common.Utilities', '$scope', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, Utilities, $scope) {
+app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', 'app.common.Utilities', '$scope', 'listaRanking', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, Utilities, $scope, listaRanking) {
 
     var vm = this;
 
