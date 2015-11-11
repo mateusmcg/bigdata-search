@@ -11,12 +11,39 @@
             </ul>
         </div>
 
-        <div id="googlePlusResults" app-toggle="vm.googlePlusResultsToggle">
-            <h2>Resultados</h2>
+        <div ng-if="!vm.googlePlusData" class="text-center fix-loading">
+            <img width="64" height="64" src="../../../assets/images/loading.gif" />
         </div>
 
-        <div id="googlePlusResults" app-toggle="vm.googlePlusRankingToggle">
+        <div id="googlePlusResults" app-toggle="vm.googlePlusResultsToggle" class="row logo-border ajust-box">
+            <h2>Resultados</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Total de palavras: </strong><span>{{vm.totalGooglePlusWords}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Nº posts positivos: </strong><span>{{vm.numPostsPositivosGooglePlus}} ({{vm.postsPositivosPercentGooglePlus}}%)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Nº posts negativos: </strong><span>{{vm.numPostsNegativosGooglePlus}} ({{vm.postsNegativosPercentGooglePlus}}%)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Nº posts neutros: </strong><span>{{vm.numPostsNeutrosGooglePlus}} ({{vm.postsNeutrosPercentGooglePlus}}%)</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="googlePlusResults" app-toggle="vm.googlePlusRankingToggle" class="row logo-border ajust-box">
             <h2>Ranking</h2>
+            <div ng-repeat="rankItem in vm.googlePlusRanking">
+                <span>{{rankItem.id}}. {{rankItem.palavra}} - {{rankItem.count}} vezes</span>
+            </div>
         </div>
 
         <div id="googlePlusPosts" app-toggle="vm.googlePlusPostsToggle" class="row logo-border">
@@ -27,15 +54,16 @@
                         {{googlePost.postNumber}}
                     </div>
                     <div class="text-right">
-                        <div>                            
+                        <div>
                             <img width="48" height="48" ng-if="googlePost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{googlePost.score}}" popover="Palavras positivas: {{googlePost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
                             <img width="48" height="48" ng-if="googlePost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{googlePost.score}}" popover="Palavras negativas: {{googlePost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
-                            <img width="48" height="48" ng-if="googlePost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro -_-" tooltip-append-to-body="true" tooltip-placement="left" />
+                            <img width="48" height="48" ng-if="googlePost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
                         </div>
-                    </div>
-                    <div class="text-center">
-                        <div app-load-html="googlePost.object">
-                        </div>                        
+                        <div class="text-center">
+                            <div app-load-html="googlePost.object">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr style="border: 2px solid black" />
@@ -54,18 +82,38 @@
             </ul>
         </div>
 
-        <div ng-if="!vm.instagramData">
-            <img width="64" height="64" src="../../../assets/images/loading.gif"/>
+        <div ng-if="!vm.instagramData" class="text-center fix-loading">
+            <img width="64" height="64" src="../../../assets/images/loading.gif" />
         </div>
 
-        <div ng-if="vm.instagramData" id="instagramResults" app-toggle="vm.instagramResultsToggle">
+        <div ng-if="vm.instagramData" id="instagramResults" app-toggle="vm.instagramResultsToggle" class="row logo-border ajust-box">
             <h2>Resultados</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Total de palavras: </strong><span>{{vm.totalInstagramWords}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Nº posts positivos: </strong><span>{{vm.numPostsPositivosInstagram}} ({{vm.postsPositivosPercentInstagram}}%)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Nº posts negativos: </strong><span>{{vm.numPostsNegativosInstagram}} ({{vm.postsNegativosPercentInstagram}}%)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Nº posts neutros: </strong><span>{{vm.numPostsNeutrosInstagram}} ({{vm.postsNeutrosPercentInstagram}}%)</span>
+                </div>
+            </div>
         </div>
 
-        <div ng-if="vm.instagramData" id="instagramRanking" app-toggle="vm.instagramRankingToggle">
+        <div ng-if="vm.instagramData" id="instagramRanking" app-toggle="vm.instagramRankingToggle" class="row logo-border ajust-box">
             <h2>Ranking</h2>
             <div ng-repeat="rankItem in vm.instagramRanking">
-                <span>1. {{rankItem.palavra}} - {{rankItem.count}} vezes</span>
+                <span>{{rankItem.id}}. {{rankItem.palavra}} - {{rankItem.count}} vezes</span>
             </div>
         </div>
 
@@ -80,7 +128,7 @@
                         <div>
                             <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras positivas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
                             <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras negativas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
-                            <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro -_-" tooltip-append-to-body="true" tooltip-placement="left" />
+                            <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
                         </div>
                     </div>
                     <div class="text-center">

@@ -116,7 +116,8 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
     function getTokens(str) {
         var cleanPost;
         cleanPost = convert_accented_characters(str); //Substitui acentos.
-        cleanPost = cleanPost.replace(/[^a-zA-Z ]+/g, " "); //Remove caracteres especiais.
+        cleanPost = cleanPost.replace(/(<([^>]+)>)/ig, ""); //Remove tags html.
+        cleanPost = cleanPost.replace(/[^a-zA-Z ]+/g, " "); //Remove caracteres especiais.        
         cleanPost = cleanPost.toLowerCase(); //Deixa minúsculo.
         cleanPost = cleanPost.replace(/\s\s+/g, ' ').trim(); //Remove espaços em branco.
 

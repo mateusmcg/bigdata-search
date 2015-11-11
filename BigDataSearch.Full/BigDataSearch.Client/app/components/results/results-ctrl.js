@@ -65,6 +65,39 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
         vm.instagramRankingToggle = true;
     };
 
+    function avaliaGooglePlusResults() {
+        //Total de palavras do Instagram
+        vm.totalGooglePlusWords = ($filter('filter')(listaRanking, { socialMidia: 'GooglePlus' })).length;
+
+        //Lista com as 10 palavras que mais se repetiram
+        vm.googlePlusRanking = ($filter('orderBy')(($filter('filter')(listaRanking, { socialMidia: 'GooglePlus' })), '-count')).slice(0, 10);
+
+        //Total de posts positivos
+        vm.numPostsPositivosGooglePlus = $filter('filter')(vm.googlePlusData, function (item) {
+            return item.score > 0;
+        }).length;
+        vm.postsPositivosPercentGooglePlus = ((vm.numPostsPositivosGooglePlus / vm.googlePlusData.length) * 100).toFixed(2);
+
+        //Total de posts neutros
+        vm.numPostsNeutrosGooglePlus = $filter('filter')(vm.googlePlusData, function (item) {
+            return item.score == 0;
+        }).length;
+        vm.postsNeutrosPercentGooglePlus = ((vm.numPostsNeutrosGooglePlus / vm.googlePlusData.length) * 100).toFixed(2);
+
+        //Total de posts negativos
+        vm.numPostsNegativosGooglePlus = $filter('filter')(vm.googlePlusData, function (item) {
+            return item.score < 0;
+        }).length;
+        vm.postsNegativosPercentGooglePlus = ((vm.numPostsNegativosGooglePlus / vm.googlePlusData.length) * 100).toFixed(2);
+
+        //Numera as palavras do ranking
+        var rankCount = 1;
+        angular.forEach(vm.googlePlusRanking, function (item, key) {
+            item.id = rankCount;
+            rankCount++;
+        });
+    }
+
     function googleRequest() {
         var googleData = {
             query: $routeParams.search.replace('#', ''),
@@ -80,41 +113,54 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
             var postNumber = 1;
 
             angular.forEach(success, function (item, index) {
-                var fullPost = item.title + ' ' + item.object.content;
+                var fullPost = item.object.content;
                 var postSentiment = Utilities.analyzeSentiment(fullPost, 'GooglePlus');
-                //var postSentiment = sentiment.analyze(fullPost);
                 item.score = postSentiment.score;
                 item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
                 item.postNumber = postNumber++;
             });
 
-            var numberOfPages = resultCount % googleData.maxResults == 0 ? resultCount / googleData.maxResults : parseInt(resultCount / googleData.maxResults) + 1;
+            if ($routeParams.count > 20) {
+                var numberOfPages = resultCount % googleData.maxResults == 0 ? resultCount / googleData.maxResults : parseInt(resultCount / googleData.maxResults) + 1;
 
-            var promise;
-            var currentPage = 2;
+                var promise;
+                var currentPage = 2;
 
-            for (var i = 0; i < numberOfPages; i++) {
-                if (!promise)
-                    promise = GooglePlusRestAngular.all('activities').getList(googleData);
-                else {
-                    promise = promise.then(function (page) {
-                        angular.forEach(page, function (item, index) {
-                            vm.googlePlusData.push(item);
-                            var fullPost = item.title + ' ' + item.object.content;
-                            var postSentiment = Utilities.analyzeSentiment(fullPost, 'GooglePlus');                            
-                            item.score = postSentiment.score;
-                            item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
-                            item.postNumber = postNumber++;
+                for (var i = 0; i < numberOfPages; i++) {
+                    if (!promise) {
+                        googleData.maxResults = numberOfPages == 2 ? ($routeParams.count - 20) : 20;
+                        promise = GooglePlusRestAngular.all('activities').getList(googleData);
+                    }
+                    else {
+                        promise = promise.then(function (page) {
+                            angular.forEach(page, function (item, index) {
+                                vm.googlePlusData.push(item);
+                                var fullPost = item.object.content;
+                                var postSentiment = Utilities.analyzeSentiment(fullPost, 'GooglePlus');
+                                item.score = postSentiment.score;
+                                item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
+                                item.postNumber = postNumber;
+                                postNumber++;
+                            });
+
+                            if (currentPage == numberOfPages) {
+                                avaliaGooglePlusResults();
+
+                                return;
+                            }
+
+                            currentPage++;
+                            googleData.pageToken = page.nextPage;
+                            googleData.maxResults = currentPage == numberOfPages ? resultCount % googleData.maxResults : 20;
+
+                            return GooglePlusRestAngular.all('activities').getList(googleData);
                         });
-
-                        currentPage++;
-                        googleData.pageToken = page.nextPage;
-                        googleData.maxResults = currentPage == numberOfPages ? resultCount % googleData.maxResults : 20;
-
-                        return GooglePlusRestAngular.all('activities').getList(googleData);
-                    });
+                    }
                 }
+            } else {
+                avaliaGooglePlusResults();
             }
+                    
         }, function (error) {
             console.log('Erro na API do google: ', error);
         });
@@ -131,14 +177,45 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
             var postNumber = 1;
             angular.forEach(success, function (data, index) {
                 var fullPost = data.caption ? data.caption.text + ' ' : '';
-                fullPost = fullPost ? fullPost.replace(/#/g, '') : fullPost.concat(data.tags.join(' '));
+                fullPost = fullPost ? fullPost.replace(/#/g, ' ') : fullPost.concat(data.tags.join(' '));
                 var postSentiment = Utilities.analyzeSentiment(fullPost, 'Instagram');
-                vm.instagramRanking = ($filter('filter')(listaRanking, { socialMidia: 'Instagram' })).sort(function(a, b){ b.count - a.count });
                 data.score = postSentiment.score;
                 data.words = data.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
                 data.postNumber = postNumber;
                 postNumber++;
             });
+
+            //Total de palavras do Instagram
+            vm.totalInstagramWords = ($filter('filter')(listaRanking, { socialMidia: 'Instagram' })).length;
+
+            //Lista com as 10 palavras que mais se repetiram
+            vm.instagramRanking = ($filter('orderBy')(($filter('filter')(listaRanking, { socialMidia: 'Instagram' })), '-count')).slice(0, 10);
+
+            //Total de posts positivos
+            vm.numPostsPositivosInstagram = $filter('filter')(success, function (item) {
+                return item.score > 0;
+            }).length;
+            vm.postsPositivosPercentInstagram = ((vm.numPostsPositivosInstagram / success.length) * 100).toFixed(2);
+
+            //Total de posts neutros
+            vm.numPostsNeutrosInstagram = $filter('filter')(success, function (item) {
+                return item.score == 0;
+            }).length;
+            vm.postsNeutrosPercentInstagram = ((vm.numPostsNeutrosInstagram / success.length) * 100).toFixed(2);
+
+            //Total de posts negativos
+            vm.numPostsNegativosInstagram = $filter('filter')(success, function (item) {
+                return item.score < 0;
+            }).length;
+            vm.postsNegativosPercentInstagram = ((vm.numPostsNegativosInstagram / success.length) * 100).toFixed(2);
+
+            //Numera as palavras do ranking
+            var rankCount = 1;
+            angular.forEach(vm.instagramRanking, function (item, key) {
+                item.id = rankCount;
+                rankCount++;
+            });
+
             vm.instagramData = success;
         }, function (error) {
             console.log('Erro na API do instagram: ' + error);
