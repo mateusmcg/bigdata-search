@@ -117,7 +117,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                 var postSentiment = Utilities.analyzeSentiment(fullPost, 'GooglePlus');
                 item.score = postSentiment.score;
                 item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
-                item.postNumber = postNumber++;
+                item.postNumber = postNumber++;                
             });
 
             if ($routeParams.count > 20) {
@@ -133,14 +133,14 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                     }
                     else {
                         promise = promise.then(function (page) {
-                            angular.forEach(page, function (item, index) {
-                                vm.googlePlusData.push(item);
+                            angular.forEach(page, function (item, index) {                                
                                 var fullPost = item.object.content;
                                 var postSentiment = Utilities.analyzeSentiment(fullPost, 'GooglePlus');
                                 item.score = postSentiment.score;
                                 item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
                                 item.postNumber = postNumber;
                                 postNumber++;
+                                vm.googlePlusData.push(item);
                             });
 
                             if (currentPage == numberOfPages) {
