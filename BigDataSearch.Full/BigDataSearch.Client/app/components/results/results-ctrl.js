@@ -9,60 +9,12 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
     vm.resultsCtrl = {};
 
     vm.loadResults = loadResults;
-    vm.toggleTwitterResults = toggleTwitterResults;
-    vm.toggleTwitterPosts = toggleTwitterPosts;
-    vm.toggleTwitterRanking = toggleTwitterRanking;
-    vm.toggleInstagramResults = toggleInstagramResults;
-    vm.toggleInstagramPosts = toggleInstagramPosts;
-    vm.toggleInstagramRanking = toggleInstagramRanking;
-    vm.twitterPostsToggle = false;
-    vm.twitterResultsToggle = false;
-    vm.twitterRankingToggle = false;
-    vm.instagramPostsToggle = false;
-    vm.instagramResultsToggle = false;
-    vm.instagramRankingToggle = false;
 
     vm.loadResults();
 
     function loadResults() {
-        twitterRequest();        
+        twitterRequest();
         instagramRequest();
-    };
-
-    function toggleTwitterResults() {
-        vm.twitterPostsToggle = false;
-        vm.twitterRankingToggle = false;
-        vm.twitterResultsToggle = true;
-    };
-
-    function toggleTwitterPosts() {
-        vm.twitterResultsToggle = false;
-        vm.twitterRankingToggle = false;
-        vm.twitterPostsToggle = true;
-    };
-
-    function toggleTwitterRanking() {
-        vm.twitterResultsToggle = false;
-        vm.twitterPostsToggle = false;
-        vm.twitterRankingToggle = true;
-    };
-
-    function toggleInstagramResults() {
-        vm.instagramRankingToggle = false;
-        vm.instagramPostsToggle = false;
-        vm.instagramResultsToggle = true;
-    };
-
-    function toggleInstagramPosts() {
-        vm.instagramResultsToggle = false;
-        vm.instagramRankingToggle = false;
-        vm.instagramPostsToggle = true;
-    };
-
-    function toggleInstagramRanking() {
-        vm.instagramPostsToggle = false;
-        vm.instagramResultsToggle = false;
-        vm.instagramRankingToggle = true;
     };
 
     function twitterRequest() {
@@ -92,33 +44,38 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
 
             //Total de posts positivos
             vm.numPostsPositivosTwitter = $filter('filter')(success, function (item) {
-                return item.score > 0;
-            }).length;
-            vm.postsPositivosPercentTwitter = ((vm.numPostsPositivosTwitter / success.length) * 100).toFixed(2);
+                if (item.score > 0)
+                    return item;
+            });
+            vm.postsPositivosPercentTwitter = ((vm.numPostsPositivosTwitter.length / success.length) * 100).toFixed(2);
 
             //Total de posts neutros
             vm.numPostsNeutrosTwitter = $filter('filter')(success, function (item) {
-                return item.score == 0;
-            }).length;
-            vm.postsNeutrosPercentTwitter = ((vm.numPostsNeutrosTwitter / success.length) * 100).toFixed(2);
+                if (item.score == 0)
+                    return item;
+            });
+            vm.postsNeutrosPercentTwitter = ((vm.numPostsNeutrosTwitter.length / success.length) * 100).toFixed(2);
 
             //Total de posts negativos
             vm.numPostsNegativosTwitter = $filter('filter')(success, function (item) {
-                return item.score < 0;
-            }).length;
-            vm.postsNegativosPercentTwitter = ((vm.numPostsNegativosTwitter / success.length) * 100).toFixed(2);
+                if (item.score < 0)
+                    return item;
+            });
+            vm.postsNegativosPercentTwitter = ((vm.numPostsNegativosTwitter.length / success.length) * 100).toFixed(2);
 
             //Numera as palavras do ranking
             var rankCount = 1;
             angular.forEach(vm.twitterRanking, function (item, key) {
                 item.id = rankCount;
                 rankCount++;
-            }, function (error) {
-                console.log('Erro na API do twitter:');
-                console.log(error);
             });
 
             vm.twitterData = success;
+
+        }, function (error) {
+            vm.twitterError = error.data.exceptionMessage;
+            console.log('Erro na API do twitter:');
+            console.log(error);
         });
     }
 
@@ -149,21 +106,24 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
 
             //Total de posts positivos
             vm.numPostsPositivosInstagram = $filter('filter')(success, function (item) {
-                return item.score > 0;
-            }).length;
-            vm.postsPositivosPercentInstagram = ((vm.numPostsPositivosInstagram / success.length) * 100).toFixed(2);
+                if (item.score > 0)
+                    return item;
+            });
+            vm.postsPositivosPercentInstagram = ((vm.numPostsPositivosInstagram.length / success.length) * 100).toFixed(2);
 
             //Total de posts neutros
             vm.numPostsNeutrosInstagram = $filter('filter')(success, function (item) {
-                return item.score == 0;
-            }).length;
-            vm.postsNeutrosPercentInstagram = ((vm.numPostsNeutrosInstagram / success.length) * 100).toFixed(2);
+                if (item.score == 0)
+                    return item;
+            });
+            vm.postsNeutrosPercentInstagram = ((vm.numPostsNeutrosInstagram.length / success.length) * 100).toFixed(2);
 
             //Total de posts negativos
             vm.numPostsNegativosInstagram = $filter('filter')(success, function (item) {
-                return item.score < 0;
-            }).length;
-            vm.postsNegativosPercentInstagram = ((vm.numPostsNegativosInstagram / success.length) * 100).toFixed(2);
+                if (item.score < 0)
+                    return item;
+            });
+            vm.postsNegativosPercentInstagram = ((vm.numPostsNegativosInstagram.length / success.length) * 100).toFixed(2);
 
             //Numera as palavras do ranking
             var rankCount = 1;
@@ -174,6 +134,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
 
             vm.instagramData = success;
         }, function (error) {
+            vm.instagramError = 'Não conseguimos processar a requisição. Por favor verifique a conexão com a internet ou tente mais tarde.';
             console.log('Erro na API do instagram:');
             console.log(error);
         });
