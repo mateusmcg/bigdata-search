@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'app.credentials', 'app.common.Utilities', '$scope', 'listaRanking', '$filter', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, credentials, Utilities, $scope, listaRanking, $filter) {
+app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'TwitterRestService', 'app.credentials', 'app.common.Utilities', '$scope', 'listaRanking', '$filter', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, TwitterRestService, credentials, Utilities, $scope, listaRanking, $filter) {
 
     var vm = this;
 
@@ -9,15 +9,15 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
     vm.resultsCtrl = {};
 
     vm.loadResults = loadResults;
-    vm.toggleGooglePlusResults = toggleGooglePlusResults;
-    vm.toggleGooglePlusPosts = toggleGooglePlusPosts;
-    vm.toggleGooglePlusRanking = toggleGooglePlusRanking;
+    vm.toggleTwitterResults = toggleTwitterResults;
+    vm.toggleTwitterPosts = toggleTwitterPosts;
+    vm.toggleTwitterRanking = toggleTwitterRanking;
     vm.toggleInstagramResults = toggleInstagramResults;
     vm.toggleInstagramPosts = toggleInstagramPosts;
     vm.toggleInstagramRanking = toggleInstagramRanking;
-    vm.googlePlusPostsToggle = false;
-    vm.googlePlusResultsToggle = false;
-    vm.googlePlusRankingToggle = false;
+    vm.twitterPostsToggle = false;
+    vm.twitterResultsToggle = false;
+    vm.twitterRankingToggle = false;
     vm.instagramPostsToggle = false;
     vm.instagramResultsToggle = false;
     vm.instagramRankingToggle = false;
@@ -25,26 +25,26 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
     vm.loadResults();
 
     function loadResults() {
-        googleRequest();
+        twitterRequest();        
         instagramRequest();
     };
 
-    function toggleGooglePlusResults() {
-        vm.googlePlusPostsToggle = false;
-        vm.googlePlusRankingToggle = false;
-        vm.googlePlusResultsToggle = true;
+    function toggleTwitterResults() {
+        vm.twitterPostsToggle = false;
+        vm.twitterRankingToggle = false;
+        vm.twitterResultsToggle = true;
     };
 
-    function toggleGooglePlusPosts() {
-        vm.googlePlusResultsToggle = false;
-        vm.googlePlusRankingToggle = false;
-        vm.googlePlusPostsToggle = true;
+    function toggleTwitterPosts() {
+        vm.twitterResultsToggle = false;
+        vm.twitterRankingToggle = false;
+        vm.twitterPostsToggle = true;
     };
 
-    function toggleGooglePlusRanking() {
-        vm.googlePlusResultsToggle = false;
-        vm.googlePlusPostsToggle = false;
-        vm.googlePlusRankingToggle = true;
+    function toggleTwitterRanking() {
+        vm.twitterResultsToggle = false;
+        vm.twitterPostsToggle = false;
+        vm.twitterRankingToggle = true;
     };
 
     function toggleInstagramResults() {
@@ -65,106 +65,62 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
         vm.instagramRankingToggle = true;
     };
 
-    function avaliaGooglePlusResults() {
-        //Total de palavras do Instagram
-        vm.totalGooglePlusWords = ($filter('filter')(listaRanking, { socialMidia: 'GooglePlus' })).length;
-
-        //Lista com as 10 palavras que mais se repetiram
-        vm.googlePlusRanking = ($filter('orderBy')(($filter('filter')(listaRanking, { socialMidia: 'GooglePlus' })), '-count')).slice(0, 10);
-
-        //Total de posts positivos
-        vm.numPostsPositivosGooglePlus = $filter('filter')(vm.googlePlusData, function (item) {
-            return item.score > 0;
-        }).length;
-        vm.postsPositivosPercentGooglePlus = ((vm.numPostsPositivosGooglePlus / vm.googlePlusData.length) * 100).toFixed(2);
-
-        //Total de posts neutros
-        vm.numPostsNeutrosGooglePlus = $filter('filter')(vm.googlePlusData, function (item) {
-            return item.score == 0;
-        }).length;
-        vm.postsNeutrosPercentGooglePlus = ((vm.numPostsNeutrosGooglePlus / vm.googlePlusData.length) * 100).toFixed(2);
-
-        //Total de posts negativos
-        vm.numPostsNegativosGooglePlus = $filter('filter')(vm.googlePlusData, function (item) {
-            return item.score < 0;
-        }).length;
-        vm.postsNegativosPercentGooglePlus = ((vm.numPostsNegativosGooglePlus / vm.googlePlusData.length) * 100).toFixed(2);
-
-        //Numera as palavras do ranking
-        var rankCount = 1;
-        angular.forEach(vm.googlePlusRanking, function (item, key) {
-            item.id = rankCount;
-            rankCount++;
-        });
-    }
-
-    function googleRequest() {
-        var googleData = {
-            query: $routeParams.search.replace('#', ''),
-            maxResults: $routeParams.count > 20 ? 20 : $routeParams.count,
-            key: credentials.googlePlusKey
+    function twitterRequest() {
+        var twitterQuery = $routeParams.search.replace('#', '');
+        var twitterData = {
+            count: $routeParams.count ? $routeParams.count : 20,
+            query: twitterQuery
         }
 
-        var resultCount = $routeParams.count;
-
-        GooglePlusRestAngular.all('activities').getList(googleData).then(function (success) {
-            vm.googlePlusData = success;
-
+        TwitterRestService.all('api/twitter/tweets/' + twitterData.query + '/' + twitterData.count).getList().then(function (success) {
             var postNumber = 1;
-
-            angular.forEach(success, function (item, index) {
-                var fullPost = item.object.content;
-                var postSentiment = Utilities.analyzeSentiment(fullPost, 'GooglePlus');
-                item.score = postSentiment.score;
-                item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
-                item.postNumber = postNumber++;                
+            angular.forEach(success, function (data, index) {
+                var fullPost = data.text;
+                //fullPost = fullPost ? fullPost.replace(/#/g, ' ') : fullPost.concat(data.tags.join(' '));
+                var postSentiment = Utilities.analyzeSentiment(fullPost, 'Twitter');
+                data.score = postSentiment.score;
+                data.words = data.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
+                data.postNumber = postNumber;
+                postNumber++;
             });
 
-            if ($routeParams.count > 20) {
-                var numberOfPages = resultCount % googleData.maxResults == 0 ? resultCount / googleData.maxResults : parseInt(resultCount / googleData.maxResults) + 1;
+            //Total de palavras do Twitter
+            vm.totalTwitterWords = ($filter('filter')(listaRanking, { socialMidia: 'Twitter' })).length;
 
-                var promise;
-                var currentPage = 2;
+            //Lista com as 10 palavras que mais se repetiram
+            vm.twitterRanking = ($filter('orderBy')(($filter('filter')(listaRanking, { socialMidia: 'Twitter' })), '-count')).slice(0, 10);
 
-                for (var i = 0; i < numberOfPages; i++) {
-                    if (!promise) {
-                        googleData.maxResults = numberOfPages == 2 ? ($routeParams.count - 20) : 20;
-                        promise = GooglePlusRestAngular.all('activities').getList(googleData);
-                    }
-                    else {
-                        promise = promise.then(function (page) {
-                            angular.forEach(page, function (item, index) {                                
-                                var fullPost = item.object.content;
-                                var postSentiment = Utilities.analyzeSentiment(fullPost, 'GooglePlus');
-                                item.score = postSentiment.score;
-                                item.words = item.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
-                                item.postNumber = postNumber;
-                                postNumber++;
-                                vm.googlePlusData.push(item);
-                            });
+            //Total de posts positivos
+            vm.numPostsPositivosTwitter = $filter('filter')(success, function (item) {
+                return item.score > 0;
+            }).length;
+            vm.postsPositivosPercentTwitter = ((vm.numPostsPositivosTwitter / success.length) * 100).toFixed(2);
 
-                            if (currentPage == numberOfPages) {
-                                avaliaGooglePlusResults();
+            //Total de posts neutros
+            vm.numPostsNeutrosTwitter = $filter('filter')(success, function (item) {
+                return item.score == 0;
+            }).length;
+            vm.postsNeutrosPercentTwitter = ((vm.numPostsNeutrosTwitter / success.length) * 100).toFixed(2);
 
-                                return;
-                            }
+            //Total de posts negativos
+            vm.numPostsNegativosTwitter = $filter('filter')(success, function (item) {
+                return item.score < 0;
+            }).length;
+            vm.postsNegativosPercentTwitter = ((vm.numPostsNegativosTwitter / success.length) * 100).toFixed(2);
 
-                            currentPage++;
-                            googleData.pageToken = page.nextPage;
-                            googleData.maxResults = currentPage == numberOfPages ? resultCount % googleData.maxResults : 20;
+            //Numera as palavras do ranking
+            var rankCount = 1;
+            angular.forEach(vm.twitterRanking, function (item, key) {
+                item.id = rankCount;
+                rankCount++;
+            }, function (error) {
+                console.log('Erro na API do twitter:');
+                console.log(error);
+            });
 
-                            return GooglePlusRestAngular.all('activities').getList(googleData);
-                        });
-                    }
-                }
-            } else {
-                avaliaGooglePlusResults();
-            }
-                    
-        }, function (error) {
-            console.log('Erro na API do google: ', error);
+            vm.twitterData = success;
         });
-    };
+    }
 
     function instagramRequest() {
         var instagramQuery = $routeParams.search.replace('#', '');
@@ -218,7 +174,8 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
 
             vm.instagramData = success;
         }, function (error) {
-            console.log('Erro na API do instagram: ' + error);
+            console.log('Erro na API do instagram:');
+            console.log(error);
         });
     };
 
