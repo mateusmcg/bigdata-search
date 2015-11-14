@@ -115,6 +115,7 @@
     <Content Include="assets\libs\angular-bootstrap\ui-bootstrap.js" />
     <Content Include="assets\libs\angular-localstorage\angular-local-storage.min.js" />
     <Content Include="assets\libs\angular-route\angular-route.js" />
+    <Content Include="assets\libs\angular-tabs\angular-tabs.js" />
     <Content Include="assets\libs\angular-toastr\angular-toastr.js" />
     <Content Include="assets\libs\angular-toastr\angular-toastr.tpls.js" />
     <Content Include="assets\libs\angular-twitter-api\ng-twitter-api.js" />
