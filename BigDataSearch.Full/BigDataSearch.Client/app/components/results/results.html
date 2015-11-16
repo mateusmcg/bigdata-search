@@ -35,11 +35,13 @@
                         </div>
                     </div>
                     <div tab-title="Ranking">
-                        <div ng-if="vm.twitterRanking" id="twitterResults" class="row ajust-box">
-                            <h2>Ranking</h2>
-                            <div ng-repeat="rankItem in vm.twitterRanking">
-                                <span>{{rankItem.id}}. {{rankItem.palavra}} - {{rankItem.count}} vezes</span>
-                            </div>
+                        <div ng-if="vm.twitterRankingDataSource" id="twitterResults" class="row text-center ajust-box fix-chart">
+                            <div class="col-md-12">
+                                <fusioncharts width="530"
+                                              height="700"
+                                              type="column2d"
+                                              datasource="{{vm.twitterRankingDataSource}}"></fusioncharts>
+                            </div>                            
                         </div>
                     </div>
                     <div tab-title="Posts">
@@ -188,10 +190,12 @@
                         </div>
                     </div>
                     <div tab-title="Ranking">
-                        <div ng-if="vm.instagramRanking" id="instagramRanking" class="row ajust-box">
-                            <h2>Ranking</h2>
-                            <div ng-repeat="rankItem in vm.instagramRanking">
-                                <span>{{rankItem.id}}. {{rankItem.palavra}} - {{rankItem.count}} vezes</span>
+                        <div ng-if="vm.instagramRankingDataSource" id="instagramResults" class="row text-center ajust-box fix-chart">
+                            <div class="col-md-12">
+                                <fusioncharts width="530"
+                                              height="700"
+                                              type="column2d"
+                                              datasource="{{vm.instagramRankingDataSource}}"></fusioncharts>
                             </div>
                         </div>
                     </div>

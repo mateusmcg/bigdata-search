@@ -40,7 +40,20 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
             vm.totalTwitterWords = ($filter('filter')(listaRanking, { socialMidia: 'Twitter' })).length;
 
             //Lista com as 10 palavras que mais se repetiram
-            vm.twitterRanking = ($filter('orderBy')(($filter('filter')(listaRanking, { socialMidia: 'Twitter' })), '-count')).slice(0, 10);
+            var twitterRankingList = ($filter('orderBy')(($filter('filter')(listaRanking, { socialMidia: 'Twitter' })), '-count')).slice(0, 10);
+
+            vm.twitterRankingDataSource = {
+                chart: {
+                    caption: "Twitter Ranking",
+                    subCaption: "Top 10 words used in Twitter for #" + twitterQuery,
+                    theme: "ocean"
+                },
+                data: []
+            };
+
+            angular.forEach(twitterRankingList, function (item, index) {
+                vm.twitterRankingDataSource.data.push({ label: item.palavra, value: item.count });
+            });
 
             //Total de posts positivos
             vm.numPostsPositivosTwitter = $filter('filter')(success, function (item) {
@@ -102,7 +115,20 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
             vm.totalInstagramWords = ($filter('filter')(listaRanking, { socialMidia: 'Instagram' })).length;
 
             //Lista com as 10 palavras que mais se repetiram
-            vm.instagramRanking = ($filter('orderBy')(($filter('filter')(listaRanking, { socialMidia: 'Instagram' })), '-count')).slice(0, 10);
+            var instagramRankingList = ($filter('orderBy')(($filter('filter')(listaRanking, { socialMidia: 'Instagram' })), '-count')).slice(0, 10);            
+
+            vm.instagramRankingDataSource = {
+                chart: {
+                    caption: "Instagram Ranking",
+                    subCaption: "Top 10 words used in Instagram for #" + instagramQuery,
+                    theme: "ocean"
+                },
+                data: []
+            };
+
+            angular.forEach(instagramRankingList, function (item, index) {
+                vm.instagramRankingDataSource.data.push({ label: item.palavra, value: item.count });
+            });
 
             //Total de posts positivos
             vm.numPostsPositivosInstagram = $filter('filter')(success, function (item) {
