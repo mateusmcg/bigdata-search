@@ -21,3 +21,7 @@ angular.module('app.common.listas').constant('lista-es',{
 angular.module('app.common.listas').constant('listaRanking',[
 
 ]);
+
+angular.module('app.common.listas').constant('listaQuantitativos', [
+    'muito', 'muita', 'muitos', 'muitas', 'pouco', 'pouca', 'poucos', 'poucas', 'bastante', 'bastantes', 'exageradamente', 'tanto', 'varios', 'varias', 'many', 'much', 'lot of', 'lot', 'too', 'few', 'little', 'less', 'fewer', 'fewest'
+]);

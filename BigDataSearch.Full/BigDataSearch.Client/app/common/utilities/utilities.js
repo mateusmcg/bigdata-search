@@ -2,7 +2,7 @@
 
 angular.module('app.common.utilities', []);
 
-angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwords-pt', 'stopwords-en', 'stopwords-es', 'lista-pt', 'lista-en', 'lista-es', 'listaRanking', function (stopwordsPt, stopwordsEn, stopwordsEs, listaPt, listaEn, listaEs, listaRanking) {
+angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwords-pt', 'stopwords-en', 'stopwords-es', 'lista-pt', 'lista-en', 'lista-es', 'listaRanking', 'listaQuantitativos', function (stopwordsPt, stopwordsEn, stopwordsEs, listaPt, listaEn, listaEs, listaRanking, listaQuantitativos) {
 
     //Responsável por remover as stopwords do post e armazenar cada palavra na 'listaSemStopWords'
     this.removeStopWords = function (tokens) {
@@ -12,10 +12,16 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
     }
 
     //Calcular o percentual de posts bons e ruins, a partir da 'listaBoa' e 'listaRuim'
-    this.analyzeSentiment = function (post, socialMidia) {        
-        var neg, pos;
+    this.analyzeSentiment = function (post, socialMidia) {
+        var neg, pos, heuristic;
         var tokens = getTokens(post);
         tokens = this.removeStopWords(tokens);
+
+        var insertection = _.intersection(tokens, listaQuantitativos);
+        if (insertection.length > 0) {
+            heuristic = heuristicEvaluation(tokens, insertection, socialMidia);
+        }
+
         pos = positivity(tokens, socialMidia);
         neg = negativity(tokens, socialMidia);
         return {
@@ -56,13 +62,13 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
                     addPush(item, listaPt[item]);
                 }
             }
-            //Inglês
+                //Inglês
             else if (listaEn.hasOwnProperty(item)) {
                 if (listaEn[item] > 0) {
                     addPush(item, listaEn[item]);
                 }
             }
-            //Espanhol
+                //Espanhol
             else if (listaEs.hasOwnProperty(item)) {
                 if (listaEs[item] > 0) {
                     addPush(item, listaEs[item]);
@@ -112,6 +118,20 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
             words: words
         };
     };
+
+    function heuristicEvaluation(tokens, insertection, socialMidia) {
+        var index = [];
+
+        //Recupera os index 
+        for (var i = 0; i < insertection.length; i++) {
+            index.push(tokens.indexOf(insertection[i]));
+        }
+
+        //Avaliar os raios -3 a 3
+        for (var i = 0; i < index.length; i++) {
+
+        }
+    }
 
     function getTokens(str) {
         var cleanPost;
