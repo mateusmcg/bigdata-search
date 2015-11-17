@@ -46,7 +46,11 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                 chart: {
                     caption: "Twitter Ranking",
                     subCaption: "Top 10 words used in Twitter for #" + twitterQuery,
-                    theme: "ocean"
+                    theme: "ocean",
+                    exportEnabled: "1",
+                    exportAtClient: "1",
+                    exportHandler: "http://107.21.74.91/",
+                    html5ExportHandler: "http://107.21.74.91/"
                 },
                 data: []
             };
@@ -60,21 +64,52 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                 if (item.score > 0)
                     return item;
             });
-            vm.postsPositivosPercentTwitter = ((vm.numPostsPositivosTwitter.length / success.length) * 100).toFixed(2);
 
             //Total de posts neutros
             vm.numPostsNeutrosTwitter = $filter('filter')(success, function (item) {
                 if (item.score == 0)
                     return item;
             });
-            vm.postsNeutrosPercentTwitter = ((vm.numPostsNeutrosTwitter.length / success.length) * 100).toFixed(2);
 
             //Total de posts negativos
             vm.numPostsNegativosTwitter = $filter('filter')(success, function (item) {
                 if (item.score < 0)
                     return item;
             });
-            vm.postsNegativosPercentTwitter = ((vm.numPostsNegativosTwitter.length / success.length) * 100).toFixed(2);
+
+            vm.twitterResults = {
+                chart: {
+                    caption: "Twitter Results",
+                    subCaption: "#" + twitterQuery,
+                    showLabels: "1",
+                    showLegend: "1",
+                    enableMultiSlicing: "0",
+                    slicingDistance: "25",
+                    showPercentValues: "1",
+                    plotToolText: "$datavalue posts $label",
+                    exportEnabled: "1",
+                    exportAtClient: "1",
+                    exportHandler: "http://107.21.74.91/",
+                    html5ExportHandler: "http://107.21.74.91/"
+                },
+                data: [
+                    {
+                        label: 'Positivos',
+                        value: vm.numPostsPositivosTwitter.length.toString(),
+                        color: '#00ff00'
+                    },
+                    {
+                        label: 'Negativos',
+                        value: vm.numPostsNegativosTwitter.length.toString(),
+                        color: '#ff0000'
+                    },
+                    {
+                        label: 'Neutros',
+                        value: vm.numPostsNeutrosTwitter.length.toString(),
+                        color: '#808080'
+                    }
+                ]
+            }
 
             //Numera as palavras do ranking
             var rankCount = 1;
@@ -115,13 +150,17 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
             vm.totalInstagramWords = ($filter('filter')(listaRanking, { socialMidia: 'Instagram' })).length;
 
             //Lista com as 10 palavras que mais se repetiram
-            var instagramRankingList = ($filter('orderBy')(($filter('filter')(listaRanking, { socialMidia: 'Instagram' })), '-count')).slice(0, 10);            
+            var instagramRankingList = ($filter('orderBy')(($filter('filter')(listaRanking, { socialMidia: 'Instagram' })), '-count')).slice(0, 10);
 
             vm.instagramRankingDataSource = {
                 chart: {
                     caption: "Instagram Ranking",
                     subCaption: "Top 10 words used in Instagram for #" + instagramQuery,
-                    theme: "ocean"
+                    theme: "ocean",
+                    exportEnabled: "1",
+                    exportAtClient: "1",
+                    exportHandler: "http://107.21.74.91/",
+                    html5ExportHandler: "http://107.21.74.91/",
                 },
                 data: []
             };
@@ -135,21 +174,52 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
                 if (item.score > 0)
                     return item;
             });
-            vm.postsPositivosPercentInstagram = ((vm.numPostsPositivosInstagram.length / success.length) * 100).toFixed(2);
 
             //Total de posts neutros
             vm.numPostsNeutrosInstagram = $filter('filter')(success, function (item) {
                 if (item.score == 0)
                     return item;
             });
-            vm.postsNeutrosPercentInstagram = ((vm.numPostsNeutrosInstagram.length / success.length) * 100).toFixed(2);
 
             //Total de posts negativos
             vm.numPostsNegativosInstagram = $filter('filter')(success, function (item) {
                 if (item.score < 0)
                     return item;
             });
-            vm.postsNegativosPercentInstagram = ((vm.numPostsNegativosInstagram.length / success.length) * 100).toFixed(2);
+
+            vm.instagramResults = {
+                chart: {
+                    caption: "Instagram Results",
+                    subCaption: "#" + instagramQuery,
+                    showLabels: "1",
+                    showLegend: "1",
+                    enableMultiSlicing: "0",
+                    slicingDistance: "25",
+                    showPercentValues: "1",
+                    plotToolText: "$datavalue posts $label",
+                    exportEnabled: "1",
+                    exportAtClient: "1",
+                    exportHandler: "http://107.21.74.91/",
+                    html5ExportHandler: "http://107.21.74.91/",
+                },
+                data: [
+                    {
+                        label: 'Positivos',
+                        value: vm.numPostsPositivosInstagram.length.toString(),
+                        color: '#00ff00'
+                    },
+                    {
+                        label: 'Negativos',
+                        value: vm.numPostsNegativosInstagram.length.toString(),
+                        color: '#ff0000'
+                    },
+                    {
+                        label: 'Neutros',
+                        value: vm.numPostsNeutrosInstagram.length.toString(),
+                        color: '#808080'
+                    }
+                ]
+            }
 
             //Numera as palavras do ranking
             var rankCount = 1;
