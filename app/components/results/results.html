@@ -1,58 +1,302 @@
 ﻿<div class="row" ng-controller="ResultsCtrl as vm">
 
-    <!--Google+ Section-->
+    <!--Twitter Section-->
     <div class="col-md-6">
-        <div class="row text-center logo-border">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAHcklEQVR4Xu1baUwUSRT+upvhFhiU0wPjlahBES9i1Ii6JoZ1PYKERCXRxCP4QyO4HonGIyoaD4JGYzzikSgGL4JXAhrDD8WIqGjU1bjqsgjKfcwIDNO9qYIZp5tjqmdmFWFeMn+mX1V976uq91696uYA4GNk5HBJFFM4SZoOwJv8111FFEU9z/P3IAh/DiwoeM0R42Ew5IHnfbqr0e3aJYq10GiiuA8REZmcJP3Ro4xvNVYCsriPo0fXdfdl39HkioCOECD1xNk32ewkwLkCnFvA6QOcTtAZBXowA44PgzwP9wkT4BkdDbfwcLj07w/eywvgeWaaq48dQ83x48z69ig6lACv2bPhl5gIcBxqTp9GY2EhOJ6Ha3g4fOLjoRk6VI5VkgDysxBq/IkT9tikqq1DCOB9fNBn9254TJ6MxufP8TUxEaJOJwfC8/BbsQK+q1Z9/1+S0PTqFcq3bYPh3TtVwB2lbDcBglaLoFOnoBk0CFJDAz7Pm4fm0tIO8fksWQJtUpLsubGiAiWxsTBWVTnKLuZ+7COA5xF04gTcx46lA9ZfvYqKHTusDh5w4AA8Z8yQ6dVduIDKffustnW0gl0EeC9YgN5bt5oxlSUnQ5+TYxWjS3AwQrOywGk0Zl2xthZF0dGA0Wi1vSMV7CIg9Pp1aAYONOMpiYtD09u3TPj67NkD4jQtpXTJEjS+eMHU3lFKNhPgEhqKvrduyXB8nj8fhg8fmLB5zpyJgP37Zbpk+5Bt9CPFZgLcx4+n+182g0uXovHpUyb8QkAA+mVny3SrjxxBzcmTTO0dpWQ7AePGIUgBtnLXLtRlZDBjG5CfD87FxaxfnZZG84dORRDkj+30GTYTQDK8vllZMjD6e/dQtm4dOwF5eeDc3b870aQk6O/e7bR92LNnsuefIiKYx2tP0WYCSGf9cnIg9Olj7lcyGFA8ezaM5eVWQXEeHhjw8OH3tno9/v3tt7YJlKKnLkWAdt06+CQkyCDWpaejMiXFKgFKH8Ka/3cpAsjsh2Zmthx2TCKK+LJ8ORqePOmUhN7btsF73jyq05Cfjy8rVzLlAF2KAAKexHIS0y1FrKmhJHSUE7iOGIGQ8+cBQaDGl61ZY3Xpm/rvcgQQYL1iY+G/aRM1yCSSXo/KAwdQf+0aIIrm/90iI2n8F/z9UXf5MqpSUiA1N7ddLUpv36oRplhZn1rT8DYdMEYHu5yg5aDk7O+/cSNcR46UYTGWlaHh8WOI9fVwHTYMbq1em5z3yb7vSJQzbdWpKBRYo4PDCDCN7zZqFC2GECKEoCAa5zlPT5BTo0kaX75E6eLFndr0yxLQnlUkXyB5g0lqz51D1cGDPYMAl5AQ9L19W2Zsw6NHLV6/EwkrKGj/qbK0ZuFfLBt8ioxk2jUO3wLKUdvLGIlOxc6dqL9yhQmkpVKXjAKdWsFxdAWQGoBMRBHlW7dCd+OGKhJ+PQI6yBWo1ZJET380GnSwlJXsdHkCiNfXDBkCTVgYeK0WnJsbrRL3WrAALgMGtDvbJEySahJJoKxJ1ySA5+E5bRq85syBR1QUyEGHiPHrVxiKiiB9+0aJIP6gzVZotdjw/j1Kly2zSkKXI4CUwrXJyebSWHNxMeouXYI+OxvNJSVtJpQQQPRJRUgpNDqQsrnirkDmBBXRgdXbd7SybI4CZKlrN2xAr4ULW/o2Gulerj1zpv3UVoHAKyYG/ps3yw9SAMo3boTuzh1rO8Fhz20jQBAQeOgQPKZObfFlBgM90Hx78EAVMOITAg8fpv7CJI0FBXQr/CixiQCyhH0sUtnKvXtRd/GiTZjJkTokPf17YcVoxD+TJkFqbLSpP7WNVBNADjQEsOmyk+zz4pgY5jDWHkDvuXPRe/t28yM11WW1Biv1VRNAgBLAJmG9DeoMKO/nh/7375tVShMS6MXqjxDVBPS9c0cWylgONiyGhJFyOsdR1ZL4eDS9ecPSzG4d1QTQgoRFsYJUccsUl51qUZHb5f65uS3NRBFFU6YwV4jUjmX3FlBWgsk1ePGsWXYBJtEkMC2NYmM5KdprtGV71SvAsphp6qj27FlUHTpkM67Ao0fhMWkSbU8SoYa8PJv7UttQNQHkTjAkI0OewEhSy8lOcVHCAsZn0SJo16+nqvVZWajYsoWlmcN0VBNARnaPikJgaqrsVoekr7UXLqDm6FGm7cD7+sJv9Wr0ioujxpAkqmztWkhNTQ4zjqUjmwggHZN8gIRE1+HDZeOQE53u5k1qUNO7dxCrq+lzcncgBAfDdcgQSqDn9OktBIoiJa46NZUphWYxSo2OzQS0WMXTQw15AcptzBhzGGMCIIrQ5+bSt8GaXr9mavJ/KNlHgAUiITAQHhMn0jfCNIMHg/gKwdeXzrJkNELS6dD85Qt9Garh6VN8y80FKZn/bHEYAT/bEFvHdxLg/F7A+b2A83sB5/cCtnrQ7tDOGQX+Dg/X8Tzv2R1mU60Npg8nybtuv6tt3B30OUnK7MkfT1eLHBdFi3D083mjca8ETOcBi1e+usM8y20gy16QpBwjsGFQYeFf/wExQhvQnT5UqAAAAABJRU5ErkJggg==" alt="Google+" title="Google+" />
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" ng-click="vm.toggleGooglePlusResults()"><a href="" role="tab">Resultados</a></li>
-                <li role="presentation" ng-click="vm.toggleGooglePlusPosts()"><a href="" role="tab">Posts</a></li>
-                <li role="presentation"><a href="" role="tab">Etc</a></li>
-            </ul>
-        </div>
-
-        <div id="googlePlusResults" app-toggle="vm.googlePlusResultsToggle" class="row logo-border">
-            <div ng-repeat="googlePost in vm.googlePlusData">
-                <div class="text-center">
-                    <div app-load-html="googlePost.object">
-                    </div>
-                    <hr style="border: 2px solid black" />
-                </div>
+        <div class="row logo-border">
+            <div class="col-md-12 text-center fix-logo">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAFk0lEQVR4Xu1bW2wUZRT+5u9Md7fb3ZbeacFqg9ALiiUUW0KAENGghCjQVn0z8cWgiUaLiSZeICbqA2o0oiQ++OBDuSVNvVNRoSatEYJtbIFaK9YiLW2BvXRvM7PmDF0spd3LP7O0tnMed+f855zvP/OdM+efEQCg/shwmaKwN8MCNjIgnX6bs6JiDEw9xhh2NW7L6RYoeFllbQxwztmgpwhMBVwiU6uFHQdHmwQBW+dT8NdjVdVmYfuhUfecT/tpdlcFvELtodHwvNz98aBNAMwMMG8BkwNMEjSrwDxGwCyDZhk0y6BZBmdNGUxhwNrFqVizKBUlC0Q4UwUE1TAGXCpOXQzh6B8BXParU1J2bhrDpbGp/4vG8dwkuNiZgoseBaHEbU7pz51ZIp6usmNhOpvW36ASRuNvfjT3+LVrmADclSdh8xILekZkHD5z7fdEhBuAV9c54A6qeLfdC1VnDq3Il7Crxg4pRYjL97aBIGQVuDtPgtMiaDv//FEX/HLijnABkGERsH9LJsjdn/qD+OAXLxTOTMi3M7x9nxM2Mb7gJyM0Fgrj9eNu9F1RYEkREFASA4ELANqxl9f+NzrsHJKxt90DbzAx4xTMCzXpWF0oxbXzky8a9Kr4rNMHqwisXCiB/CCeSES4ACCSevZe+w12KA3f+9mLcyNy3PazbQwfbs6AwLf5ILgjqt/1BfDxqbG4bUcu5ALgnnwJL03IgMhixAVf9QZwoMsHXyh2NqwvTsXOVTcCmXAEAH44H8S+k16EY5u8aXkuADKtDPsfypjWV3cgjKZzfi0dfVGIqbbchtoyK0/Mmg4F3NjlwxEO9teVAaS8e70DpTliVOcp+Na/gmjtD+LsiHxTtXi0woZtpfwAjPhUPPXlVW4ASZErA0hxMhHG8sITDKN7WEbvZRn9LgXDYypWFkior7DFUp32fyLBZ76eIQDIqycr03B/iYU7AL2K568qaGhx6VqGKwMqckU4LQynB0N4YkUaNhSn6nKCV/nXwRDeaPXwqmt6XABUFUpoqEnXmp8LHgUFdhZ3F6fL20nK3/QG8MnpxEvfxGW4AMiyMXz04PRVwMggo61FdZ/qvx7hAoAM0rMA3QozKc9968KAW9HlAjcAy7JF7N7guN6J6fKCQ9mIEsjNARF/qYmhZmYm5IsePz7t8Ok2zZ0BEcs7xkHgbOe5A6DyR2VQr+gGgBxYmi2ivtyK5XnSLbklui7JeO24W2/s/GVwomXignIiwzCwJEvEqsLkg7DnhAedQ6HZAQCVxPcfcN6yPsCI5kd3HzAZ+oeXWfH48uSTIc0EG1rc+Mej/96PxGAIBxAB7qyyY91tyW2JifWJ/Y0UQwDQ6imAR0qt2F5mgzT9YJfb9/aBIPa2ebUpkJFiGAARp3LSGDaVWFCZL6HIYcwzAg08X/nRjQDH1DcWWIYDEDFIWVBXYcPWpVZdpZGC33PCDZonJEMMB4AGnNVFqXiswoaCKIcc8QTTMRTCO21eeOOYL8az3lTXGAZAkSMFq4skbLzdApr16xGa9X3+u18bees9dInlR8IA0BNgZYGkjbLtkgA6kyvOoAGJMc0wlbh9J8dwZjj+8XqsIKP9nzAAkda3rtyqHU0ZJfR0d7jbj+//DCDBwx1dLnABELFIB6Qb77BgzSIJC6yJpz01Nh1DMo71BbTT32Sne9I4gJK/ODMFZTkiSjJFFDoYqEWmW0Rk187r6KDEHQzjglvB325FO0GiNDfqdJk3DXRlAK/R2aRnAmC+JGW+JGW+JJWcJns2MV0UX0wSNEnQJEGTBE0S/J8QdlLcFGoPjHrBkJaU1Wf5ouMfTg43A2zLLPc1We41zduPp6GqV4BwtTbHoi/IVRlvqYzR5/P631xM1n4ZsC6lPQNaoCovHqzLPfsvcShlmAIN6BYAAAAASUVORK5CYII=" alt="Twitter" title="Twitter" />
             </div>
-        </div>
 
-        <div id="googlePlusPosts" app-toggle="vm.googlePlusPostsToggle">
-            <h2>Posts</h2>
+            <div class="col-md-12">
+                <angular-tabs id="mainTwitterTabs" active-tab="Posts">
+                    <div tab-title="Resultados">
+                        <div ng-if="vm.twitterData" id="twitterResults" class="row ajust-box">
+                            <fusioncharts width="555"
+                                          height="400"
+                                          type="pie2d"
+                                          datasource="{{vm.twitterResults}}"></fusioncharts>
+                        </div>
+                    </div>
+                    <div tab-title="Ranking">
+                        <div ng-if="vm.twitterRankingDataSource" id="twitterResults" class="row text-center ajust-box fix-chart">
+                            <div class="col-md-12 text-center">
+                                <fusioncharts width="530"
+                                              height="400"
+                                              type="column3d"
+                                              datasource="{{vm.twitterRankingDataSource}}"></fusioncharts>
+                            </div>
+                        </div>
+                    </div>
+                    <div tab-title="Posts">
+                        <angular-tabs id="twitterPostTabs" active-tab="Todos">
+                            <div tab-title="Todos">
+                                <div id="twitterPosts" class="row">
+                                    <div ng-if="vm.twitterPosts.length == 0" class="col-md-12">
+                                        <h2>Não encontramos nenhum post :(</h2>
+                                    </div>
+                                    <div ng-repeat="twitterPost in vm.twitterData">
+                                        <div class="row fix-badge-and-sentiment">
+                                            <div class="col-md-10">
+                                                <span class="badge">{{twitterPost.postNumber}}</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img width="48" height="48" ng-if="twitterPost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras positivas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="twitterPost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="twitterPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center fix-post">
+                                                {{twitterPost.text}}
+                                            </div>
+                                        </div>
+                                        <hr class="fix-hr" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div tab-title="Positivos">
+                                <div id="twitterPostsPositivos" class="row">
+                                    <div ng-if="vm.numPostsPositivosTwitter.length == 0" class="col-md-12">
+                                        <h2>Não encontramos nenhum post :(</h2>
+                                    </div>
+                                    <div ng-repeat="twitterPost in vm.numPostsPositivosTwitter">
+                                        <div class="row fix-badge-and-sentiment">
+                                            <div class="col-md-10">
+                                                <span class="badge">{{twitterPost.postNumber}}</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img width="48" height="48" ng-if="twitterPost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center fix-post">
+                                                {{twitterPost.text}}
+                                            </div>
+                                        </div>
+                                        <hr class="fix-hr" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div tab-title="Negativos">
+                                <div id="twitterPostsNegativos" class="row">
+                                    <div ng-if="vm.numPostsNegativosTwitter.length == 0" class="col-md-12">
+                                        <h2>Não encontramos nenhum post :(</h2>
+                                    </div>
+                                    <div ng-repeat="twitterPost in vm.numPostsNegativosTwitter">
+                                        <div class="row fix-badge-and-sentiment">
+                                            <div class="col-md-10">
+                                                <span class="badge">{{twitterPost.postNumber}}</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img width="48" height="48" ng-if="twitterPost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center fix-post">
+                                                {{twitterPost.text}}
+                                            </div>
+                                        </div>
+                                        <hr class="fix-hr" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div tab-title="Neutros">
+                                <div id="twitterPostsNeutros" class="row">
+                                    <div ng-if="vm.numPostsNeutrosTwitter.length == 0" class="col-md-12">
+                                        <h2>Não encontramos nenhum post :(</h2>
+                                    </div>
+                                    <div ng-repeat="twitterPost in vm.numPostsNeutrosTwitter">
+                                        <div class="row fix-badge-and-sentiment">
+                                            <div class="col-md-10">
+                                                <span class="badge">{{twitterPost.postNumber}}</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img width="48" height="48" ng-if="twitterPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center fix-post">
+                                                {{twitterPost.text}}
+                                            </div>
+                                        </div>
+                                        <hr class="fix-hr" />
+                                    </div>
+                                </div>
+                            </div>
+                        </angular-tabs>
+                    </div>
+                </angular-tabs>
+            </div>
+
+            <div ng-if="!vm.twitterData && !vm.twitterError" class="col-md-12 text-center fix-loading">
+                <img width="64" height="64" src="../../../assets/images/loading.gif" />
+            </div>
+
+            <div ng-if="vm.twitterError" class="col-md-12 text-center fix-loading">
+                <span class="text-danger">{{vm.twitterError}}</span>
+            </div>
         </div>
     </div>
 
     <!--Instagram Section-->
     <div class="col-md-6">
-        <div class="row text-center logo-border">
-            <img src="data:image/png;base64,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" alt="Instagram" title="Instagram" />
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" ng-click="vm.toggleInstagramResults()"><a href="" role="tab">Resultados</a></li>
-                <li role="presentation" ng-click="vm.toggleInstagramPosts()"><a href="" role="tab">Posts</a></li>
-                <li role="presentation"><a href="" role="tab">Etc</a></li>
-            </ul>
-        </div>
+        <div class="row logo-border">
+            <div class="col-md-12 text-center fix-logo">
+                <img src="data:image/png;base64,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" alt="Instagram" title="Instagram" />
+            </div>
 
-        <div id="instagramResults" app-toggle="vm.instagramResultsToggle" class="row logo-border">
-            <div ng-repeat="instagramPost in vm.instagramData">
-                <div class="text-center">
-                    <div>
-                        <a href="{{instagramPost.link}}"><img ng-src="{{instagramPost.images.low_resolution.url}}" class="img-circle" /></a>
+            <div class="col-md-12">
+                <angular-tabs id="mainInstagramTabs" active-tab="Posts">
+                    <div tab-title="Resultados">
+                        <div ng-if="vm.instagramData" id="instagramResults" class="row ajust-box">
+                            <fusioncharts width="555"
+                                          height="400"
+                                          type="pie2d"
+                                          datasource="{{vm.instagramResults}}"></fusioncharts>
+                        </div>
                     </div>
-                    <div>
-                        {{instagramPost.caption.text}}
+                    <div tab-title="Ranking">
+                        <div ng-if="vm.instagramRankingDataSource" id="instagramResults" class="row text-center ajust-box fix-chart">
+                            <div class="col-md-12 text-center">
+                                <fusioncharts width="530"
+                                              height="400"
+                                              type="column3d"
+                                              datasource="{{vm.instagramRankingDataSource}}"></fusioncharts>
+                            </div>
+                        </div>
                     </div>
-                    <hr style="border: 2px solid black" />
-                </div>
+                    <div tab-title="Posts">
+                        <angular-tabs id="instagramPostTabs" active-tab="Todos">
+                            <div tab-title="Todos">
+                                <div ng-if="vm.instagramData" id="instagramPosts" class="row">
+                                    <div ng-if="vm.instagramData.length == 0" class="col-md-12">
+                                        <h2>Não encontramos nenhum post :(</h2>
+                                    </div>
+                                    <div ng-repeat="instagramPost in vm.instagramData">
+                                        <div class="row fix-badge-and-sentiment">
+                                            <div class="col-md-10">
+                                                <span class="badge">{{instagramPost.postNumber}}</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras positivas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras negativas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center fix-post">
+                                                <div>
+                                                    <a href="{{instagramPost.link}}"><img ng-src="{{instagramPost.images.low_resolution.url}}" class="img-circle" /></a>
+                                                </div>
+                                                <div>
+                                                    {{instagramPost.caption.text}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="fix-hr" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div tab-title="Positivos">
+                                <div ng-if="vm.numPostsPositivosInstagram" id="instagramPosts" class="row">
+                                    <div ng-if="vm.numPostsPositivosInstagram.length == 0" class="col-md-12">
+                                        <h2>Não encontramos nenhum post :(</h2>
+                                    </div>
+                                    <div ng-repeat="instagramPost in vm.numPostsPositivosInstagram">
+                                        <div class="row fix-badge-and-sentiment">
+                                            <div class="col-md-10">
+                                                <span class="badge">{{instagramPost.postNumber}}</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras positivas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center fix-post">
+                                                <div>
+                                                    <a href="{{instagramPost.link}}"><img ng-src="{{instagramPost.images.low_resolution.url}}" class="img-circle" /></a>
+                                                </div>
+                                                <div>
+                                                    {{instagramPost.caption.text}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="fix-hr" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div tab-title="Negativos">
+                                <div ng-if="vm.numPostsNegativosInstagram" id="instagramPosts" class="row">
+                                    <div ng-if="vm.numPostsNegativosInstagram.length == 0" class="col-md-12">
+                                        <h2>Não encontramos nenhum post :(</h2>
+                                    </div>
+                                    <div ng-repeat="instagramPost in vm.numPostsNegativosInstagram">
+                                        <div class="row fix-badge-and-sentiment">
+                                            <div class="col-md-10">
+                                                <span class="badge">{{instagramPost.postNumber}}</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras negativas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center fix-post">
+                                                <div>
+                                                    <a href="{{instagramPost.link}}"><img ng-src="{{instagramPost.images.low_resolution.url}}" class="img-circle" /></a>
+                                                </div>
+                                                <div>
+                                                    {{instagramPost.caption.text}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="fix-hr" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div tab-title="Neutros">
+                                <div ng-if="vm.numPostsNeutrosInstagram" id="instagramPosts" class="row">
+                                    <div ng-if="vm.numPostsNeutrosInstagram.length == 0" class="col-md-12">
+                                        <h2>Não encontramos nenhum post :(</h2>
+                                    </div>
+                                    <div ng-repeat="instagramPost in vm.numPostsNeutrosInstagram">
+                                        <div class="row fix-badge-and-sentiment">
+                                            <div class="col-md-10">
+                                                <span class="badge">{{instagramPost.postNumber}}</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center fix-post">
+                                                <div>
+                                                    <a href="{{instagramPost.link}}"><img ng-src="{{instagramPost.images.low_resolution.url}}" class="img-circle" /></a>
+                                                </div>
+                                                <div>
+                                                    {{instagramPost.caption.text}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                    </div>
+                                </div>
+                                <hr class="fix-hr" />
+                            </div>
+                        </angular-tabs>
+                    </div>
+                </angular-tabs>
+            </div>
+
+            <div ng-if="!vm.instagramData && !vm.instagramError" class="col-md-12 text-center fix-loading">
+                <img width="64" height="64" src="../../../assets/images/loading.gif" />
+            </div>
+
+            <div ng-if="vm.instagramError" class="col-md-12 text-center fix-loading">
+                <span class="text-danger">{{vm.instagramError}}</span>
             </div>
         </div>
-
-        <div id="instagramPosts" app-toggle="vm.instagramPostsToggle">
-            <h2>Posts</h2>
-        </div>
     </div>
+
 </div>
