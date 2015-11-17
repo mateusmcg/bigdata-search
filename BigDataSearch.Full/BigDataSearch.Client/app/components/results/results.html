@@ -11,37 +11,20 @@
                 <angular-tabs id="mainTwitterTabs" active-tab="Posts">
                     <div tab-title="Resultados">
                         <div ng-if="vm.twitterData" id="twitterResults" class="row ajust-box">
-                            <h2>Resultados</h2>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Total de palavras: </strong><span>{{vm.totalTwitterWords}}</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Nº posts positivos: </strong><span>{{vm.numPostsPositivosTwitter.length}} ({{vm.postsPositivosPercentTwitter}}%)</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Nº posts negativos: </strong><span>{{vm.numPostsNegativosTwitter.length}} ({{vm.postsNegativosPercentTwitter}}%)</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Nº posts neutros: </strong><span>{{vm.numPostsNeutrosTwitter.length}} ({{vm.postsNeutrosPercentTwitter}}%)</span>
-                                </div>
-                            </div>
+                            <fusioncharts width="555"
+                                          height="400"
+                                          type="pie2d"
+                                          datasource="{{vm.twitterResults}}"></fusioncharts>
                         </div>
                     </div>
                     <div tab-title="Ranking">
                         <div ng-if="vm.twitterRankingDataSource" id="twitterResults" class="row text-center ajust-box fix-chart">
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-center">
                                 <fusioncharts width="530"
-                                              height="700"
-                                              type="column2d"
+                                              height="400"
+                                              type="column3d"
                                               datasource="{{vm.twitterRankingDataSource}}"></fusioncharts>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     <div tab-title="Posts">
@@ -166,35 +149,18 @@
                 <angular-tabs id="mainInstagramTabs" active-tab="Posts">
                     <div tab-title="Resultados">
                         <div ng-if="vm.instagramData" id="instagramResults" class="row ajust-box">
-                            <h2>Resultados</h2>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Total de palavras: </strong><span>{{vm.totalInstagramWords}}</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Nº posts positivos: </strong><span>{{vm.numPostsPositivosInstagram.length}} ({{vm.postsPositivosPercentInstagram}}%)</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Nº posts negativos: </strong><span>{{vm.numPostsNegativosInstagram.length}} ({{vm.postsNegativosPercentInstagram}}%)</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Nº posts neutros: </strong><span>{{vm.numPostsNeutrosInstagram.length}} ({{vm.postsNeutrosPercentInstagram}}%)</span>
-                                </div>
-                            </div>
+                            <fusioncharts width="555"
+                                          height="400"
+                                          type="pie2d"
+                                          datasource="{{vm.instagramResults}}"></fusioncharts>
                         </div>
                     </div>
                     <div tab-title="Ranking">
                         <div ng-if="vm.instagramRankingDataSource" id="instagramResults" class="row text-center ajust-box fix-chart">
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-center">
                                 <fusioncharts width="530"
-                                              height="700"
-                                              type="column2d"
+                                              height="400"
+                                              type="column3d"
                                               datasource="{{vm.instagramRankingDataSource}}"></fusioncharts>
                             </div>
                         </div>
