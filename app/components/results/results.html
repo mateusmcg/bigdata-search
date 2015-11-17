@@ -40,9 +40,9 @@
                                                 <span class="badge">{{twitterPost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="twitterPost.score > 0" src="../../assets/images/positive.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras positivas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
-                                                <img width="48" height="48" ng-if="twitterPost.score < 0" src="../../assets/images/negative.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
-                                                <img width="48" height="48" ng-if="twitterPost.score == 0" src="../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                                <img width="48" height="48" ng-if="twitterPost.score > 0" src="../../bigdata-search/assets/images/positive.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras positivas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="twitterPost.score < 0" src="../../bigdata-search/assets/images/negative.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="twitterPost.score == 0" src="../../bigdata-search/assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -65,7 +65,7 @@
                                                 <span class="badge">{{twitterPost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="twitterPost.score > 0" src="../../assets/images/positive.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="twitterPost.score > 0" src="../../bigdata-search/assets/images/positive.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -88,7 +88,7 @@
                                                 <span class="badge">{{twitterPost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="twitterPost.score < 0" src="../../assets/images/negative.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="twitterPost.score < 0" src="../../bigdata-search/assets/images/negative.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -111,7 +111,7 @@
                                                 <span class="badge">{{twitterPost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="twitterPost.score == 0" src="../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                                <img width="48" height="48" ng-if="twitterPost.score == 0" src="../../bigdata-search/assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -129,7 +129,7 @@
             </div>
 
             <div ng-if="!vm.twitterData && !vm.twitterError" class="col-md-12 text-center fix-loading">
-                <img width="64" height="64" src="../../../assets/images/loading.gif" />
+                <img width="64" height="64" src="../../bigdata-search/assets/images/loading.gif" />
             </div>
 
             <div ng-if="vm.twitterError" class="col-md-12 text-center fix-loading">
@@ -178,9 +178,9 @@
                                                 <span class="badge">{{instagramPost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../assets/images/positive.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras positivas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
-                                                <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../assets/images/negative.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras negativas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
-                                                <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                                <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../bigdata-search/assets/images/positive.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras positivas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../bigdata-search/assets/images/negative.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras negativas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../bigdata-search/assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -208,7 +208,7 @@
                                                 <span class="badge">{{instagramPost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../assets/images/positive.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras positivas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="instagramPost.score > 0" src="../../bigdata-search/assets/images/positive.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras positivas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -236,7 +236,7 @@
                                                 <span class="badge">{{instagramPost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../assets/images/negative.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras negativas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="instagramPost.score < 0" src="../../bigdata-search/assets/images/negative.png" popover-title="Pontuação: {{instagramPost.score}}" popover="Palavras negativas: {{instagramPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -264,7 +264,7 @@
                                                 <span class="badge">{{instagramPost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                                <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../bigdata-search/assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -279,7 +279,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                        <img width="48" height="48" ng-if="instagramPost.score == 0" src="../../bigdata-search/assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
                                     </div>
                                 </div>
                                 <hr class="fix-hr" />
@@ -290,7 +290,7 @@
             </div>
 
             <div ng-if="!vm.instagramData && !vm.instagramError" class="col-md-12 text-center fix-loading">
-                <img width="64" height="64" src="../../../assets/images/loading.gif" />
+                <img width="64" height="64" src="../../bigdata-search/assets/images/loading.gif" />
             </div>
 
             <div ng-if="vm.instagramError" class="col-md-12 text-center fix-loading">
