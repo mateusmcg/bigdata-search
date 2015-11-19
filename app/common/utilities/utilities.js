@@ -2,7 +2,7 @@
 
 angular.module('app.common.utilities', []);
 
-angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwords-pt', 'stopwords-en', 'stopwords-es', 'lista-pt', 'lista-en', 'lista-es', 'listaRanking', 'listaQuantitativos', function (stopwordsPt, stopwordsEn, stopwordsEs, listaPt, listaEn, listaEs, listaRanking, listaQuantitativos) {
+angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwords-pt', 'stopwords-en', 'stopwords-es', 'lista-pt', 'lista-en', 'lista-es', 'listaRanking', function (stopwordsPt, stopwordsEn, stopwordsEs, listaPt, listaEn, listaEs, listaRanking) {
 
     //Responsável por remover as stopwords do post e armazenar cada palavra na 'listaSemStopWords'
     this.removeStopWords = function (tokens) {
@@ -12,38 +12,18 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
     }
 
     //Calcular o percentual de posts bons e ruins, a partir da 'listaBoa' e 'listaRuim'
-    this.analyzeSentiment = function (post, socialMidia) {
-        var neg, pos, heuristic;
+    this.analyzeSentiment = function (post, socialMidia) {        
+        var neg, pos;
         var tokens = getTokens(post);
         tokens = this.removeStopWords(tokens);
-
-        var insertection = _.intersection(tokens, listaQuantitativos);
-        if (insertection.length > 0) {
-            heuristic = heuristicEvaluation(tokens, insertection, socialMidia);
-        }
-
         pos = positivity(tokens, socialMidia);
         neg = negativity(tokens, socialMidia);
-
-        if (heuristic) {
-            if (heuristic.score < 0) {
-                neg.score = neg.score + (heuristic.score * -1);
-                neg.words = neg.words.concat(heuristic.words);
-                neg.heuristicComparative = heuristic.comparative;
-            } else if (heuristic.score > 0) {
-                pos.score = pos.score + heuristic.score;
-                pos.words = pos.words.concat(heuristic.words);
-                pos.heuristicComparative = heuristic.comparative;
-            }
-        }        
-
         return {
             score: pos.score - neg.score,
             comparative: pos.comparative - neg.comparative,
             positive: pos,
             negative: neg,
-            words: tokens,
-            heuristic: heuristic
+            words: tokens
         };
     }
 
@@ -76,13 +56,13 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
                     addPush(item, listaPt[item]);
                 }
             }
-                //Inglês
+            //Inglês
             else if (listaEn.hasOwnProperty(item)) {
                 if (listaEn[item] > 0) {
                     addPush(item, listaEn[item]);
                 }
             }
-                //Espanhol
+            //Espanhol
             else if (listaEs.hasOwnProperty(item)) {
                 if (listaEs[item] > 0) {
                     addPush(item, listaEs[item]);
@@ -94,7 +74,7 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
             comparative: hits / words.length,
             words: words
         };
-    }
+    };
 
     function negativity(tokens, socialMidia) {
         var addPush, hits, i, item, j, len, noPunctuation, words;
@@ -131,71 +111,7 @@ angular.module('app.common.utilities').provider('app.common.Utilities', ['stopwo
             comparative: hits / words.length,
             words: words
         };
-    }
-
-    function getPercentByDistance(distance) {
-        switch (distance) {
-            case 1:
-            case -1:
-                return 2;
-            case 2:
-            case -2:
-                return 1.5;
-            case 3:
-            case -3:
-                return 1.25;
-            default:
-                return 1;
-        }
-    }
-
-    function heuristicEvaluation(tokens, insertection, socialMidia) {
-        var index = [], words = [], wordsToRemove = [], score = 0, item;
-
-        //Recupera os index 
-        for (var i = 0; i < insertection.length; i++) {
-            index.push(tokens.indexOf(insertection[i]));
-        }
-
-        //Avaliar os raios -3 a 3, para cada palavra Quantitativa existente no post.
-        for (var i = 0; i < index.length; i++) {
-            for (var j = i - 3 ; j <= i + 3; j++) {
-                var percent = getPercentByDistance(j);
-                item = tokens[index[i] + j];
-                if (item) {
-                    if (j != 0) {
-                        //Português
-                        if (listaPt.hasOwnProperty(item)) {
-                            score += listaPt[item] * percent;
-                            j > 0 ? words.push(tokens[index[i]] + ' ' + item) : words.push(item + ' ' + tokens[index[i]]);
-                        }
-                            //Inglês
-                        else if (listaEn.hasOwnProperty(item)) {
-                            score += listaEn[item] * percent;
-                            j > 0 ? words.push(tokens[index[i]] + ' ' + item) : words.push(item + ' ' + tokens[index[i]]);
-                        }
-                            //Espanhol
-                        else if (listaEs.hasOwnProperty(item)) {
-                            score += listaEs[item] * percent;
-                            j > 0 ? words.push(tokens[index[i]] + ' ' + item) : words.push(item + ' ' + tokens[index[i]]);
-                        }
-                    }
-
-                    wordsToRemove.push(item);
-                }
-            }
-        }
-
-        for (var i = 0; i < wordsToRemove.length; i++) {
-            tokens.splice(tokens.indexOf(wordsToRemove[i]), 1);
-        }
-
-        return {
-            score: score,
-            comparative: score / words.length,
-            words: words
-        };
-    }
+    };
 
     function getTokens(str) {
         var cleanPost;
