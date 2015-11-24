@@ -4,7 +4,7 @@ Search for hashtags to get information about what is being discussed about that 
 - Built with [AngularJS](https://angularjs.org/)
 
 ## DEMO 
-- [Live Demo](http://mateusmcg.github.io/bigdata-search/) (outdated - Updates comming soon).
+- [Live Demo](http://mateusmcg.github.io/bigdata-search/).
 
 ## API's
 - [GooglePlus](https://console.developers.google.com)
