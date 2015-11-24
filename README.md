@@ -7,7 +7,7 @@ Search for hashtags to get information about what is being discussed about that 
 - [Live Demo](http://mateusmcg.github.io/bigdata-search/).
 
 ## API's
-- [GooglePlus](https://console.developers.google.com)
+- [Twitter](https://dev.twitter.com/rest/public)
 - [Instagram](https://instagram.com/developer/)
 
 ## Main Object
