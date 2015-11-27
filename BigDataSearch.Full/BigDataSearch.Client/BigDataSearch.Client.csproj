@@ -106,6 +106,7 @@
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\fonts\weathericons-regular-webfont.svg" />
+    <Content Include="assets\images\loading.gif" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\main-section-background.png" />
     <Content Include="assets\images\negative.png" />
