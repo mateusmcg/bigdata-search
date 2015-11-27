@@ -12,7 +12,7 @@ angular.module('app.common.factory').factory('TwitterRestAngular', ['Restangular
 
 angular.module('app.common.factory').factory('TwitterRestService', ['Restangular', function (RestAngular) {
     return RestAngular.withConfig(function (RestangularConfigurer) {
-        RestangularConfigurer.setBaseUrl('http://54.207.67.123:56001/');
+        RestangularConfigurer.setBaseUrl('http://54.207.67.123:44301/');
     })
 }]);
 
