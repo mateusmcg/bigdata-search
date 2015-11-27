@@ -28,26 +28,32 @@
                         </div>
                     </div>
                     <div tab-title="Posts">
-                        <angular-tabs id="twitterPostTabs" active-tab="Todos">
+                        <angular-tabs id="vinePostTabs" active-tab="Todos">
                             <div tab-title="Todos">
-                                <div id="twitterPosts" class="row">
-                                    <div ng-if="vm.twitterPosts.length == 0" class="col-md-12">
+                                <div id="vinePosts" class="row">
+                                    <div ng-if="vm.vinePosts.length == 0" class="col-md-12">
                                         <h2>Não encontramos nenhum post :(</h2>
                                     </div>
-                                    <div ng-repeat="twitterPost in vm.twitterData">
+                                    <div ng-repeat="vinePost in vm.twitterData">
                                         <div class="row fix-badge-and-sentiment">
                                             <div class="col-md-10">
-                                                <span class="badge">{{twitterPost.postNumber}}</span>
+                                                <span class="badge">{{vinePost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="twitterPost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras positivas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
-                                                <img width="48" height="48" ng-if="twitterPost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
-                                                <img width="48" height="48" ng-if="twitterPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                                <img width="48" height="48" ng-if="vinePost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{vinePost.score}}" popover="Palavras positivas: {{vinePost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="vinePost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{vinePost.score}}" popover="Palavras negativas: {{vinePost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="vinePost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 text-center fix-post">
-                                                {{twitterPost.text}}
+                                                <div>
+                                                    <center><video class="vine-embed" src="{{vinePost.videoUrl}}" width="400" height="400"></video>
+                                                    </center>                                                    
+                                                </div>
+                                                <div>
+                                                    {{vinePost.description}}
+                                                </div>
                                             </div>
                                         </div>
                                         <hr class="fix-hr" />
@@ -55,22 +61,27 @@
                                 </div>
                             </div>
                             <div tab-title="Positivos">
-                                <div id="twitterPostsPositivos" class="row">
+                                <div id="vinePostsPositivos" class="row">
                                     <div ng-if="vm.numPostsPositivosTwitter.length == 0" class="col-md-12">
                                         <h2>Não encontramos nenhum post :(</h2>
                                     </div>
-                                    <div ng-repeat="twitterPost in vm.numPostsPositivosTwitter">
+                                    <div ng-repeat="vinePost in vm.numPostsPositivosTwitter">
                                         <div class="row fix-badge-and-sentiment">
                                             <div class="col-md-10">
-                                                <span class="badge">{{twitterPost.postNumber}}</span>
+                                                <span class="badge">{{vinePost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="twitterPost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="vinePost.score > 0" src="../../../assets/images/positive.png" popover-title="Pontuação: {{vinePost.score}}" popover="Palavras negativas: {{vinePost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 text-center fix-post">
-                                                {{twitterPost.text}}
+                                                <div>
+                                                    <a href="{{vinePost.permalinkUrl}}"><img ng-src="{{vinePost.videoUrl}}" class="img-circle" /></a>
+                                                </div>
+                                                <div>
+                                                    {{vinePost.description}}
+                                                </div>
                                             </div>
                                         </div>
                                         <hr class="fix-hr" />
@@ -78,22 +89,27 @@
                                 </div>
                             </div>
                             <div tab-title="Negativos">
-                                <div id="twitterPostsNegativos" class="row">
+                                <div id="vinePostsNegativos" class="row">
                                     <div ng-if="vm.numPostsNegativosTwitter.length == 0" class="col-md-12">
                                         <h2>Não encontramos nenhum post :(</h2>
                                     </div>
-                                    <div ng-repeat="twitterPost in vm.numPostsNegativosTwitter">
+                                    <div ng-repeat="vinePost in vm.numPostsNegativosTwitter">
                                         <div class="row fix-badge-and-sentiment">
                                             <div class="col-md-10">
-                                                <span class="badge">{{twitterPost.postNumber}}</span>
+                                                <span class="badge">{{vinePost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="twitterPost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{twitterPost.score}}" popover="Palavras negativas: {{twitterPost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+                                                <img width="48" height="48" ng-if="vinePost.score < 0" src="../../../assets/images/negative.png" popover-title="Pontuação: {{vinePost.score}}" popover="Palavras negativas: {{vinePost.words}}" popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 text-center fix-post">
-                                                {{twitterPost.text}}
+                                                <div>
+                                                    <a href="{{vinePost.permalinkUrl}}"><img ng-src="{{vinePost.videoUrl}}" class="img-circle" /></a>
+                                                </div>
+                                                <div>
+                                                    {{vinePost.description}}
+                                                </div>
                                             </div>
                                         </div>
                                         <hr class="fix-hr" />
@@ -101,22 +117,27 @@
                                 </div>
                             </div>
                             <div tab-title="Neutros">
-                                <div id="twitterPostsNeutros" class="row">
+                                <div id="vinePostsNeutros" class="row">
                                     <div ng-if="vm.numPostsNeutrosTwitter.length == 0" class="col-md-12">
                                         <h2>Não encontramos nenhum post :(</h2>
                                     </div>
-                                    <div ng-repeat="twitterPost in vm.numPostsNeutrosTwitter">
+                                    <div ng-repeat="vinePost in vm.numPostsNeutrosTwitter">
                                         <div class="row fix-badge-and-sentiment">
                                             <div class="col-md-10">
-                                                <span class="badge">{{twitterPost.postNumber}}</span>
+                                                <span class="badge">{{vinePost.postNumber}}</span>
                                             </div>
                                             <div class="col-md-2">
-                                                <img width="48" height="48" ng-if="twitterPost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
+                                                <img width="48" height="48" ng-if="vinePost.score == 0" src="../../../assets/images/neutral.png" tooltip="Este post é neutro, uma foto ou um vídeo." tooltip-append-to-body="true" tooltip-placement="left" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 text-center fix-post">
-                                                {{twitterPost.text}}
+                                                <div>
+                                                    <a href="{{vinePost.permalinkUrl}}"><img ng-src="{{vinePost.videoUrl}}" class="img-circle" /></a>
+                                                </div>
+                                                <div>
+                                                    {{vinePost.description}}
+                                                </div>
                                             </div>
                                         </div>
                                         <hr class="fix-hr" />

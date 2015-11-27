@@ -27,10 +27,10 @@ app.config(['$routeProvider', '$httpProvider', 'RestangularProvider', 'app.crede
     RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
         var extractedData;
 
-        if (url.indexOf('api/twitter') > -1) {
+        if (url.indexOf('api.vineapp') > -1) {
 
             if (operation === "getList") {
-                extractedData = data;                
+                extractedData = data.data.records;
             }
 
             return extractedData;

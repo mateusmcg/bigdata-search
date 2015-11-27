@@ -29,3 +29,9 @@ angular.module('app.common.factory').factory('GooglePlusRestAngular', ['Restangu
         RestangularConfigurer.setBaseUrl('https://www.googleapis.com/plus/v1/');
     })
 }]);
+
+angular.module('app.common.factory').factory('VineRestService', ['Restangular', function (RestAngular) {
+    return RestAngular.withConfig(function (RestangularConfigurer) {
+        RestangularConfigurer.setBaseUrl('https://api.vineapp.com/timelines/tags/');
+    })
+}]);

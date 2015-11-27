@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'TwitterRestService', 'app.credentials', 'app.common.Utilities', '$scope', 'listaRanking', '$filter', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, TwitterRestService, credentials, Utilities, $scope, listaRanking, $filter) {
+app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'InstagramRestAngular', 'TwitterRestService', 'VineRestService', 'app.credentials', 'app.common.Utilities', '$scope', 'listaRanking', '$filter', '$sce', function ($routeParams, GooglePlusRestAngular, InstagramRestAngular, TwitterRestService, VineRestService, credentials, Utilities, $scope, listaRanking, $filter, $sce) {
 
     var vm = this;
 
@@ -18,21 +18,21 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
     };
 
     function twitterRequest() {
-        var twitterQuery = $routeParams.search.replace('#', '');
-        var twitterData = {
-            count: $routeParams.count ? $routeParams.count : 20,
-            query: twitterQuery
+        var vineQuery = $routeParams.search.replace('#', '');
+        var vineData = {
+            size: $routeParams.count ? $routeParams.count : 20,
         }
 
-        TwitterRestService.all('api/twitter/tweets/' + twitterData.query + '/' + twitterData.count).getList().then(function (success) {
+        VineRestService.all('/' + vineQuery).getList(vineData).then(function (success) {
             var postNumber = 1;
             angular.forEach(success, function (data, index) {
-                var fullPost = data.text;
+                var fullPost = data.description;
                 //fullPost = fullPost ? fullPost.replace(/#/g, ' ') : fullPost.concat(data.tags.join(' '));
                 var postSentiment = Utilities.analyzeSentiment(fullPost, 'Twitter');
                 data.score = postSentiment.score;
                 data.words = data.score > 0 ? postSentiment.positive.words.join(', ') : postSentiment.negative.words.join(', ');
                 data.postNumber = postNumber;
+                data.videoUrl = $sce.trustAsResourceUrl(data.videoUrl);
                 postNumber++;
             });
 
@@ -45,7 +45,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
             vm.twitterRankingDataSource = {
                 chart: {
                     caption: "Twitter Ranking",
-                    subCaption: "Top 10 words used in Twitter for #" + twitterQuery,
+                    subCaption: "Top 10 words used in Twitter for #" + vineQuery,
                     theme: "ocean",
                     exportEnabled: "1",
                     exportAtClient: "1",
@@ -80,7 +80,7 @@ app.controller('ResultsCtrl', ['$routeParams', 'GooglePlusRestAngular', 'Instagr
             vm.twitterResults = {
                 chart: {
                     caption: "Twitter Results",
-                    subCaption: "#" + twitterQuery,
+                    subCaption: "#" + vineQuery,
                     showLabels: "1",
                     showLegend: "1",
                     enableMultiSlicing: "0",
