@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigDataSearch.Client", "BigDataSearch.Client\BigDataSearch.Client.csproj", "{8763EDA1-B95A-4C38-B311-882315FD8A81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterAPI", "TwitterAPI\TwitterAPI.csproj", "{E2621757-D26B-495A-9B19-EC8276B0FB1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8763EDA1-B95A-4C38-B311-882315FD8A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8763EDA1-B95A-4C38-B311-882315FD8A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8763EDA1-B95A-4C38-B311-882315FD8A81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2621757-D26B-495A-9B19-EC8276B0FB1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2621757-D26B-495A-9B19-EC8276B0FB1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2621757-D26B-495A-9B19-EC8276B0FB1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2621757-D26B-495A-9B19-EC8276B0FB1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

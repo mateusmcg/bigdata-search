@@ -10,11 +10,9 @@ angular.module('app.common.factory').factory('TwitterRestAngular', ['Restangular
     })
 }]);
 
-angular.module('app.common.factory').factory('TwitterAuthRestAngular', ['Restangular', function (RestAngular) {
+angular.module('app.common.factory').factory('TwitterRestService', ['Restangular', function (RestAngular) {
     return RestAngular.withConfig(function (RestangularConfigurer) {
-        RestangularConfigurer.setJsonp(true);
-        RestangularConfigurer.setDefaultRequestParams('jsonp', { callback: 'JSON_CALLBACK' });
-        RestangularConfigurer.setBaseUrl('https://api.twitter.com/oauth2/');
+        RestangularConfigurer.setBaseUrl('http://54.207.67.123:44301/');
     })
 }]);
 

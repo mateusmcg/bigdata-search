@@ -99,3 +99,25 @@
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
+.fix-badge-and-sentiment{
+    padding-left: 15px;
+    padding-bottom: 5px;
+}
+
+.fix-post{
+    overflow-x: auto;
+}
+
+.fix-hr{
+    border: 1px black solid;
+}
+
+.fix-logo{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.fix-chart{
+    padding-top: 15px;
+}
